@@ -781,7 +781,8 @@
                                 <label class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-brand-gold transition cursor-pointer bg-gray-50 block">
                                     <i class="fa-solid fa-camera text-3xl text-gray-400 mb-2"></i>
                                     <p class="text-sm text-gray-500">Натисніть, щоб завантажити фото (Max 5MB)</p>
-                                    <input type="file" name="attachment[]" multiple accept="image/*" class="hidden">
+                                    <input type="file" name="attachment" multiple accept="image/*" class="hidden" id="file-upload" onchange="document.getElementById('file-list').textContent = this.files.length > 0 ? 'Обрано файлів: ' + this.files.length : 'Файли не обрано';">
+                                    <p id="file-list" class="text-sm text-brand-gold mt-2 font-bold"></p>
                                 </label>
                             </div>
                         </div>
