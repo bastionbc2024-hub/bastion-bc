@@ -777,12 +777,17 @@
                                 <textarea name="description" required rows="4" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:border-brand-gold bg-gray-50" placeholder="Опишіть детально, що трапилось, за яких обставин виявлено дефект..."></textarea>
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold mb-1">Фото-докази (Обов'язково) *</label>
+                                <label class="block text-sm font-semibold mb-1">Фото та Відео докази (Обов'язково) *</label>
                                 <label class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-brand-gold transition cursor-pointer bg-gray-50 block">
-                                    <i class="fa-solid fa-camera text-3xl text-gray-400 mb-2"></i>
-                                    <p class="text-sm text-gray-500">Натисніть, щоб завантажити фото (Max 5MB)</p>
-                                    <input type="file" name="attachment" multiple accept="image/*" class="hidden" id="file-upload" onchange="document.getElementById('file-list').textContent = this.files.length > 0 ? 'Обрано файлів: ' + this.files.length : 'Файли не обрано';">
+                                    <div class="flex justify-center gap-4 mb-2">
+                                        <i class="fa-solid fa-camera text-3xl text-gray-400"></i>
+                                        <i class="fa-solid fa-video text-3xl text-gray-400"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-500">Натисніть, щоб завантажити фото або відео</p>
+                                    <p class="text-xs text-gray-400 mt-1">(Макс. сумарний розмір - 25MB)</p>
+                                    <input type="file" name="attachment[]" multiple accept="image/*,video/*" class="hidden" id="file-upload" onchange="handleFileUpload(this)">
                                     <p id="file-list" class="text-sm text-brand-gold mt-2 font-bold"></p>
+                                    <p id="file-error" class="text-xs text-red-500 mt-1 hidden font-bold"></p>
                                 </label>
                             </div>
                         </div>
@@ -913,6 +918,34 @@
             } else {
                 modal.classList.add('hidden');
                 document.body.style.overflow = ''; // Enable scroll
+            }
+        }
+
+        // File Upload Handling
+        function handleFileUpload(input) {
+            const files = input.files;
+            const fileList = document.getElementById('file-list');
+            const errorMsg = document.getElementById('file-error');
+            const maxSize = 25 * 1024 * 1024; // 25MB
+            let totalSize = 0;
+
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    totalSize += files[i].size;
+                }
+
+                if (totalSize > maxSize) {
+                    errorMsg.textContent = 'Загальний розмір файлів перевищує 25MB. Будь ласка, зменшіть кількість або розмір.';
+                    errorMsg.classList.remove('hidden');
+                    fileList.textContent = '';
+                    input.value = ''; // Clear input
+                } else {
+                    errorMsg.classList.add('hidden');
+                    fileList.textContent = 'Обрано файлів: ' + files.length + ' (Загальний розмір: ' + (totalSize / 1024 / 1024).toFixed(2) + ' MB)';
+                }
+            } else {
+                fileList.textContent = 'Файли не обрано';
+                errorMsg.classList.add('hidden');
             }
         }
     </script>
