@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктиви | БАСТІОН-БЦ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        brand: { dark: '#0047ab', gold: '#d4af37', gray: '#333333', light: '#f4f4f4' } 
+                    }, 
+                    fontFamily: { sans: ['"Open Sans"', 'sans-serif'], heading: ['"Montserrat"', 'sans-serif'] } 
+                } 
+            } 
+        }
+    </script>
+    <style>
+        body { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Стилі для карток навігатора */
+        .category-card { transition: all 0.3s ease; }
+        .category-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        .active-filter { background-color: #0047ab !important; color: white !important; border-color: #0047ab !important; }
+        .feature-icon { width: 24px; display: flex; justify-content: center; color: #0047ab; }
+        .door-badge { font-size: 0.7rem; padding: 2px 10px; border-radius: 9999px; font-weight: 700; text-transform: uppercase; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-heading font-bold tracking-wider flex items-center gap-2">
+                <div class="flex items-center">
+                    <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+                </div>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-wide">
+                <a href="index.html" class="nav-link hover:text-brand-gold transition pb-1">Головна</a>
+                <a href="about.html" class="nav-link hover:text-brand-gold transition pb-1">Про нас</a>
+                <a href="catalog.html" class="nav-link hover:text-brand-gold transition pb-1">Каталог</a>
+                <a href="constructives.html" class="nav-link active hover:text-brand-gold transition pb-1">Конструктиви</a>
+                <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
+                <a href="dealers.html" class="border border-brand-gold text-brand-gold px-4 py-1 rounded hover:bg-brand-gold hover:text-white transition">Для дилерів</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none p-2"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 absolute w-full top-full left-0 shadow-2xl">
+            <a href="index.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Головна</a>
+            <a href="about.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Про нас</a>
+            <a href="catalog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Каталог</a>
+            <a href="constructives.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Конструктиви</a>
+            <a href="contacts.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Контакти</a>
+            <a href="dealers.html" class="block py-4 px-6 text-brand-gold font-bold hover:bg-white/10 text-lg">Для дилерів</a>
+        </div>
+    </nav>
+    <div class="h-[72px]"></div>
+
+    <main class="page-section active block flex-grow">
+        <section class="py-12 md:py-20 bg-white/95 rounded-xl my-4 mx-4 shadow-xl">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-10 md:mb-12">
+                    <h2 class="text-2xl md:text-4xl font-heading font-bold text-brand-dark mb-4">Конструктиви дверей</h2>
+                    <div class="w-16 md:w-24 h-1 bg-brand-gold mx-auto"></div>
+                </div>
+        
+
+        <div class="sticky top-[72px] z-40  shadow-sm py-4 border-b border-gray-100">
+            <div class="flex flex-wrap justify-center gap-2 px-4 max-w-5xl mx-auto">
+                <button onclick="filterDoors('all')" id="btn-all" class="filter-btn active-filter px-4 py-2 rounded-lg border border-gray-200 text-xs font-bold uppercase tracking-widest transition">Всі серії</button>
+                <button onclick="filterDoors('tech')" id="btn-tech" class="filter-btn px-4 py-2 rounded-lg border border-gray-200 text-xs font-bold uppercase tracking-widest transition">Технічні</button>
+                <button onclick="filterDoors('flat')" id="btn-flat" class="filter-btn px-4 py-2 rounded-lg border border-gray-200 text-xs font-bold uppercase tracking-widest transition">В квартиру</button>
+                <button onclick="filterDoors('house-t')" id="btn-house-t" class="filter-btn px-4 py-2 rounded-lg border border-gray-200 text-xs font-bold uppercase tracking-widest transition">З тамбуром</button>
+                <button onclick="filterDoors('house-out')" id="btn-house-out" class="filter-btn px-4 py-2 rounded-lg border border-gray-200 text-xs font-bold uppercase tracking-widest transition">Вулиця</button>
+            </div>
+        </div>
+
+        <section class="max-w-7xl mx-auto px-6 py-12 bg-white/95">
+            
+            <div id="doors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+        </section>
+        </section>
+    </main>
+
+    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 md:py-12 border-t border-white/10">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4"></a>
+                <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Меню</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="about.html" class="hover:text-brand-gold">Про нас</a></li>
+                    <li><a href="catalog.html" class="hover:text-brand-gold">Каталог</a></li>
+                    <li><a href="dealers.html" class="hover:text-brand-gold">Співпраця</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакти</h4>
+                <p class="text-sm">с. Фурси, вул. Промислова, 22</p>
+                <p class="text-sm">068 968 32 32</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Соцмережі</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-brand-gold"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-brand-gold"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 text-center text-sm border-t border-white/10 pt-6 mt-8 text-gray-400">&copy; 2026 БАСТІОН-БЦ.</div>
+    </footer>
+
+    <script>
+        // Логіка мобільного меню
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        const doors = [
+            // Технічні
+            { name: "ТЕХНО 4", category: "tech", label: "Технічні", metal: "0.8 мм", insulation: "Пінополістирол", threshold: "Фарбована сталь", seal: "2 контури", mdf: "ні", thermo: "ні", frame: "50 мм", desc: "Бюджетне рішення для внутрішніх технічних зон." },
+            { name: "ТЕХНО 2/3", category: "tech", label: "Технічні", metal: "1.0-1.2 мм", insulation: "Мінвата", threshold: "Фарбована сталь", seal: "1 контур", mdf: "ні", thermo: "ні", frame: "60 мм", desc: "Стандартні двері для цехів, складів та підсобних приміщень." },
+            { name: "ОФІС-ТИТАН", category: "tech", label: "Технічні", metal: "1.5 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "2 контури", mdf: "ні", thermo: "ні", frame: "80 мм", desc: "Посилена металева конструкція з високою зносостійкістю." },
+            
+            // Квартира
+            { name: "ЕКОНОМ", category: "flat", label: "В квартиру", metal: "1.2 мм", insulation: "Мінвата", threshold: "Фарбована сталь", seal: "1 контур", mdf: "8 / 8 мм", thermo: "ні", frame: "70 мм", desc: "Базовий рівень для багатоквартирних будинків." },
+            { name: "КВАРТАЛ ПЛЮС", category: "flat", label: "В квартиру", metal: "1.0 мм", insulation: "Мінвата", threshold: "Фарбована сталь", seal: "2 контури", mdf: "10 / 10 мм", thermo: "ні", frame: "85 мм", desc: "Збалансована шумоізоляція для під'їзду." },
+            { name: "СТАЙЛ", category: "flat", label: "В квартиру", metal: "1.2 мм", insulation: "Мінвата", threshold: "Фарбована сталь", seal: "2 контури", mdf: "16 / 10 мм", thermo: "ні", frame: "90 мм", desc: "Оптимальне співвідношення захисту та естетики." },
+            { name: "ПРЕМІУМ", category: "flat", label: "В квартиру", metal: "1.5 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "2 контури", mdf: "16 / 16 мм", thermo: "ні", frame: "100 мм", desc: "Максимальний захист квартири та масивні МДФ панелі." },
+            { name: "ПРЕМІУМ ПЛЮС", category: "flat", label: "В квартиру", metal: "1.5 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "2 контури", mdf: "16 / 16 мм", thermo: "ні", frame: "115 мм", desc: "Преміальне рішення для квартир з підвищеною товщиною стулки." },
+
+            // Будинок з тамбуром
+            { name: "ПРАЙМ", category: "house-t", label: "Будинок (тамбур)", metal: "1.2 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "2 контури", mdf: "10 / 10 мм", thermo: "ні", frame: "90 мм", desc: "Для будинків з холодним тамбуром, що захищає від конденсату." },
+            { name: "ОФІС-ЕКОНОМ", category: "house-t", label: "Будинок (тамбур)", metal: "1.2 мм", insulation: "Мінвата", threshold: "Фарбована сталь", seal: "2 контури", mdf: "10 / 10 мм", thermo: "ні", frame: "80 мм", desc: "Доступний варіант для офісних приміщень або будинків з тамбуром." },
+            { name: "ОФІС-ЕЛІТ", category: "house-t", label: "Будинок (тамбур)", metal: "1.5 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "2 контури", mdf: "10 / 10 мм", thermo: "ні", frame: "100 мм", desc: "Стильний офісний або домашній варіант з порогом з нержавійки." },
+            { name: "ОФІС-МАКС", category: "house-t", label: "Будинок (тамбур)", metal: "1.5 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "3 контури", mdf: "16 / 16 мм", thermo: "ні", frame: "110 мм", desc: "Максимальна комплектація офісної серії з підвищеною ізоляцією." },
+
+            // Вулиця
+            { name: "ЕТАЛОН", category: "house-out", label: "Вулиця", metal: "1.5 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "2 контури", mdf: "16 / 16 мм", thermo: "10 мм (Термоміст)", frame: "115 мм", desc: "Вуличні двері з базовим терморозривом для захисту від промерзання." },
+            { name: "МОНОЛІТ", category: "house-out", label: "Вулиця", metal: "1.5 мм", insulation: "Мінвата", threshold: "Нержавіюча сталь", seal: "3 контури", mdf: "16 / 16 мм", thermo: "16 мм (Термоміст)", frame: "130 мм", desc: "Професійний захист для приватних будинків без тамбура." },
+            { name: "ТЕРМІКС", category: "house-out", label: "Вулиця", metal: "1.5 мм", insulation: "Мінвата + корок", threshold: "Нержавіюча сталь", seal: "3 контури", mdf: "Сендвіч-панель", thermo: "Так (Терморозрив)", frame: "140 мм", desc: "Максимальне енергозбереження. Полотно товщиною 104 мм." }
+        ];
+
+
+        function getBadgeClass(cat) {
+            switch(cat) {
+                case 'tech': return 'bg-slate-100 text-slate-600';
+                case 'flat': return 'bg-blue-100 text-blue-700';
+                case 'house-t': return 'bg-emerald-100 text-emerald-700';
+                case 'house-out': return 'bg-orange-100 text-orange-700';
+                default: return 'bg-gray-100';
+            }
+        }
+
+        function filterDoors(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active-filter'));
+            document.getElementById('btn-' + category).classList.add('active-filter');
+            const grid = document.getElementById('doors-grid');
+            grid.innerHTML = '';
+            const filtered = category === 'all' ? doors : doors.filter(d => d.category === category);
+
+            filtered.forEach(door => {
+                const card = document.createElement('div');
+                card.className = "category-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col";
+                const thermoHighlight = door.thermo !== 'ні' ? 'text-orange-600 font-bold' : 'text-slate-700 font-semibold';
+
+                card.innerHTML = `
+                    <div class="p-7 flex-grow">
+                        <div class="flex justify-between items-start mb-5">
+                            <h3 class="text-xl font-bold text-slate-800 tracking-tight uppercase">${door.name}</h3>
+                            <span class="door-badge ${getBadgeClass(door.category)}">${door.label}</span>
+                        </div>
+                        <p class="text-slate-500 text-xs mb-6 leading-relaxed italic border-l-4 border-slate-200 pl-3">${door.desc}</p>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex items-center"><span class="feature-icon"><i class="fas fa-layer-group"></i></span><span class="text-slate-500 w-24">Метал:</span><span class="font-semibold">${door.metal}</span></div>
+                            <div class="flex items-center"><span class="feature-icon"><i class="fas fa-vector-square"></i></span><span class="text-slate-500 w-24">Рама:</span><span class="font-semibold">${door.frame}</span></div>
+                            <div class="flex items-center"><span class="feature-icon"><i class="fas fa-border-all"></i></span><span class="text-slate-500 w-24">МДФ:</span><span class="font-semibold">${door.mdf}</span></div>
+                            <div class="flex items-center"><span class="feature-icon"><i class="fas fa-snowflake"></i></span><span class="text-slate-500 w-24">Термо:</span><span class="${thermoHighlight}">${door.thermo}</span></div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.onload = () => filterDoors('all');
+    </script>
+</body>
+</html>

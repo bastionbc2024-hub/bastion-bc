@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог | БАСТІОН-БЦ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { dark: '#0047ab', gold: '#d4af37', gray: '#333333', light: '#f4f4f4' } }, fontFamily: { sans: ['"Open Sans"', 'sans-serif'], heading: ['"Montserrat"', 'sans-serif'] } } } }
+    </script>
+    <style>
+        body { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
+        .door-card:hover img { transform: scale(1.1); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .cursor-zoom-in { cursor: zoom-in; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-heading font-bold tracking-wider flex items-center gap-2">
+                <div class="flex items-center">
+                    <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+                </div>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-wide">
+                <a href="index.html" class="nav-link hover:text-brand-gold transition pb-1">Головна</a>
+                <a href="about.html" class="nav-link hover:text-brand-gold transition pb-1">Про нас</a>
+                <a href="catalog.html" class="nav-link active hover:text-brand-gold transition pb-1">Каталог</a>
+                <a href="constructives.html" class="nav-link hover:text-brand-gold transition pb-1">Конструктиви</a>
+                <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
+                <a href="dealers.html" class="border border-brand-gold text-brand-gold px-4 py-1 rounded hover:bg-brand-gold hover:text-white transition">Для дилерів</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none p-2"><i class="fa-solid fa-bars"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 absolute w-full top-full left-0 shadow-2xl">
+            <a href="index.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Головна</a>
+            <a href="about.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Про нас</a>
+            <a href="catalog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Каталог</a>
+            <a href="constructives.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Конструктиви</a>
+            <a href="contacts.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Контакти</a>
+            <a href="dealers.html" class="block py-4 px-6 text-brand-gold font-bold hover:bg-white/10 text-lg">Для дилерів</a>
+        </div>
+    </nav>
+    <div class="h-[72px]"></div>
+
+    <main class="page-section active block flex-grow">
+        <section class="py-12 md:py-20 bg-white/95 rounded-xl my-4 mx-4 shadow-xl">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-10 md:mb-12">
+                    <h2 class="text-2xl md:text-4xl font-heading font-bold text-brand-dark mb-4">Каталог продукції</h2>
+                    <div class="w-16 md:w-24 h-1 bg-brand-gold mx-auto"></div>
+                </div>
+
+                <div id="filter-container" class="flex justify-start md:justify-center gap-4 mb-10 overflow-x-auto pb-4 no-scrollbar">
+                    <button onclick="filterSelection('all')" class="filter-btn active px-6 py-2 rounded-full bg-brand-dark text-white font-semibold whitespace-nowrap text-sm md:text-base flex-shrink-0 transition shadow-sm" data-target="all">Всі товари</button>
+                    <button onclick="filterSelection('street')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark hover:text-brand-dark transition whitespace-nowrap text-sm md:text-base flex-shrink-0" data-target="street">Вуличні</button>
+                    <button onclick="filterSelection('flat')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark hover:text-brand-dark transition whitespace-nowrap text-sm md:text-base flex-shrink-0" data-target="flat">Квартирні</button>
+                    <button onclick="filterSelection('tech')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark hover:text-brand-dark transition whitespace-nowrap text-sm md:text-base flex-shrink-0" data-target="tech">Технічні</button>
+                    <button onclick="filterSelection('interior')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark hover:text-brand-dark transition whitespace-nowrap text-sm md:text-base flex-shrink-0" data-target="interior">Міжкімнатні</button>
+                    <button onclick="filterSelection('hardware')" class="filter-btn px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark hover:text-brand-dark transition whitespace-nowrap text-sm md:text-base flex-shrink-0" data-target="hardware">Фурнітура</button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100" data-category="flat">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1489171079545-d42e8270427a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Серія "Стандарт"</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Метал 1.2мм, два надійних замки, утеплення мінватою. Базовий захист квартири.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">від 9 500 грн</p>
+                                <span class="bg-blue-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Квартира</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100" data-category="street">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1582582621959-48d27397dc69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Серія "Термо-Еліт"</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Терморозрив на полотні та коробці. Захист від промерзання та конденсату.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">від 18 200 грн</p>
+                                <span class="bg-orange-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Вулиця</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100" data-category="tech">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1595846519845-68e298c2edd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Технічні двері</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Прості та надійні двері для складів, підвалів, котелень та техприміщень.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">від 6 000 грн</p>
+                                <span class="bg-gray-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Технічні</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100" data-category="interior">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Модель "Модерн"</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Стильний дизайн, покриття екошпон, стійкість до вологи та подряпин.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">від 4 500 грн</p>
+                                <span class="bg-emerald-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Міжкімнатні</span>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- ФУРНІТУРА -->
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="images/510.jpg" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Корпус 510</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">🔐Корпус 510 (+серцевина Стандарт)
+                            Надійний механізм.Оптимальний вибір для вхідних дверей за доступною ціною.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">402 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="images/2000.jpg" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Кале 2000</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Турецька якість. Посилені ригелі та стійкість до корозії. Золотий стандарт.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">482 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="images/252.jpg" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Корпус 252</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Посилений корпус для важких дверей. Під циліндрову серцевину.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">770 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="images/252 KALE.webp" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Кале 252</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Оригінал Kale Kilit. Важкий замок найвищого класу безпеки.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">1 805 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1589820296153-17d401a07991?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Секуреме 252</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Італійська надійність. Securemme - вибір професіоналів для бронедверей.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">2 023 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1558211583-03ed8a0b3d5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Кале 282</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Замок з поворотними ригелями (краби). Підвищений захист від віджиму.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">2 277 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Кале 442</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Врізний замок без ручки. Ідеально підходить для додаткового захисту.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">1 334 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1589820296153-17d401a07991?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Гардіан 3011</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Сувальдний механізм. Перевірена часом конструкція.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">850 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1558002038-109177381792?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">ПЕС ДАВІД</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Smart-технології. Відбиток / Код / Карта / Додаток. Забудьте про ключі.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">12 465 грн</p>
+                                <span class="bg-blue-500 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Smart</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Мотура 54.797</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Двосистемний замок Mottura (Італія). Захист від відмичок MyKey.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">7 336 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100 hidden fade-in" data-category="hardware">
+                        <img onclick="openModal(this.src)" src="https://images.unsplash.com/photo-1558211583-03ed8a0b3d5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Сантос 1739</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Протипожежний замок. Висока стійкість до температур та навантажень.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">552 грн</p>
+                                <span class="bg-purple-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Фурнітура</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg h-80 md:h-96 border border-gray-100" data-category="street">
+                        <img onclick="openModal(this.src)" src="images/monolit.png" class="w-full h-full object-cover transition duration-500 cursor-zoom-in">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white w-full pointer-events-none">
+                            <h3 class="text-xl md:text-2xl font-bold mb-1">Серія "Моноліт"</h3>
+                            <p class="text-xs text-gray-200 mb-2 line-clamp-2">Максимальний терморозрив 16мм. Преміум дизайн для вашого будинку.</p>
+                            <div class="flex justify-between items-end">
+                                <p class="text-brand-gold font-bold">від 22 000 грн</p>
+                                <span class="bg-orange-600 text-[10px] px-2 py-1 rounded uppercase tracking-widest">Вулиця</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/90 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeModal()">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-brand-gold transition z-[101]">&times;</button>
+        <img id="modalImage" src="" alt="Full screen" class="max-w-[60vw] max-h-[60vh] object-contain rounded-lg shadow-2xl transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+    </div>
+
+    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 md:py-12 border-t border-white/10">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4"></a>
+                <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Меню</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="about.html" class="hover:text-brand-gold">Про нас</a></li>
+                    <li><a href="catalog.html" class="hover:text-brand-gold">Каталог</a></li>
+                    <li><a href="dealers.html" class="hover:text-brand-gold">Співпраця</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакти</h4>
+                <p class="text-sm">с. Фурси, вул. Промислова, 22</p>
+                <p class="text-sm">068 968 32 32</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Соцмережі</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-brand-gold"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="text-white hover:text-brand-gold"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 text-center text-sm border-t border-white/10 pt-6 mt-8 text-gray-400">&copy; 2024 БАСТІОН-БЦ.</div>
+    </footer>
+
+    <script>
+        // Мобільне меню
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // ФУНКЦІЯ ФІЛЬТРАЦІЇ
+        function filterSelection(category) {
+            const cards = document.querySelectorAll('.door-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                    card.classList.add('fade-in');
+                } else {
+                    card.classList.add('hidden');
+                    card.classList.remove('fade-in');
+                }
+            });
+
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-dark', 'text-white');
+                btn.classList.add('border', 'border-gray-300', 'text-gray-600');
+                if (btn.getAttribute('data-target') === category) {
+                    btn.classList.remove('border', 'border-gray-300', 'text-gray-600');
+                    btn.classList.add('bg-brand-dark', 'text-white');
+                }
+            });
+        }
+
+        // МОДАЛЬНЕ ВІКНО
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modalImg.src = imageSrc;
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalImg.classList.remove('scale-95');
+                modalImg.classList.add('scale-100');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modal.classList.add('opacity-0');
+            modalImg.classList.remove('scale-100');
+            modalImg.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalImg.src = '';
+            }, 300);
+
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
