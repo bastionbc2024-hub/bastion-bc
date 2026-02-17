@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кале 2000 + серцевина | БАСТІОН-БЦ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        brand: { dark: '#0047ab', gold: '#d4af37', gray: '#333333', light: '#f4f4f4' }
+                    }, 
+                    fontFamily: { sans: ['"Open Sans"', 'sans-serif'], heading: ['"Montserrat"', 'sans-serif'] } 
+                } 
+            } 
+        }
+    </script>
+    <style>
+        body { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="font-sans text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-heading font-bold tracking-wider flex items-center gap-2">
+                <div class="flex items-center">
+                    <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-6 text-sm font-semibold uppercase tracking-wide">
+                <a href="index.html" class="nav-link hover:text-brand-gold transition pb-1">Головна</a>
+                <a href="about.html" class="nav-link hover:text-brand-gold transition pb-1">Про нас</a>
+                <a href="catalog.html" class="nav-link hover:text-brand-gold transition pb-1">Каталог</a>
+                <a href="constructives.html" class="nav-link hover:text-brand-gold transition pb-1">Конструктиви</a>
+                <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
+
+                <div class="h-6 w-px bg-white/20 mx-2"></div>
+
+                <a href="tel:+380671032400" class="flex items-center gap-2 hover:text-brand-gold transition normal-case">
+                    <i class="fa-solid fa-phone text-brand-gold"></i>
+                    <span class="font-bold whitespace-nowrap">067 103 24 00</span>
+                </a>
+
+                <a href="cart.html" class="hover:text-brand-gold transition text-lg relative group" title="Кошик">
+                    <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition-transform"></i>
+                    <span id="cart-badge-desktop" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                </a>
+
+                <a href="dealers.html" class="border border-brand-gold text-brand-gold px-4 py-1 rounded hover:bg-brand-gold hover:text-white transition">Для дилерів</a>
+            </div>
+
+            <div class="flex items-center gap-4 md:hidden">
+                <a href="cart.html" class="text-xl focus:outline-none relative text-brand-gold">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-badge-mobile" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                </a>
+                
+                <button id="mobile-menu-btn" class="text-2xl focus:outline-none p-2">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 absolute w-full top-full left-0 shadow-2xl">
+            <a href="index.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Головна</a>
+            <a href="about.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Про нас</a>
+            <a href="catalog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Каталог</a>
+            <a href="constructives.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Конструктиви</a>
+            <a href="contacts.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Контакти</a>
+            <a href="tel:+380671032400" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg font-bold text-brand-gold"><i class="fa-solid fa-phone mr-2"></i> 067 103 24 00</a>
+            <a href="dealers.html" class="block py-4 px-6 text-brand-gold font-bold hover:bg-white/10 text-lg">Для дилерів</a>
+        </div>
+    </nav>
+    <div class="h-[72px] md:h-[88px]"></div>
+
+    <div class="container mx-auto px-6 pt-6">
+        <nav class="flex text-sm font-medium text-white/80 bg-black/20 py-2 px-4 rounded-lg inline-block backdrop-blur-sm">
+            <ol class="flex items-center space-x-2">
+                <li><a href="index.html" class="hover:text-brand-gold transition">Головна</a></li>
+                <li class="flex items-center space-x-2">
+                    <span class="text-white/40">/</span>
+                    <a href="hardware.html" class="hover:text-brand-gold transition">Фурнітура</a>
+                </li>
+                <li class="flex items-center space-x-2 text-brand-dark">
+                    <span class="text-white/40">/</span>
+                    <span>Кале 2000</span>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="bg-white/95 rounded-2xl shadow-2xl overflow-hidden fade-in">
+            <div class="flex flex-col md:flex-row">
+                
+                <div class="md:w-1/2 p-4 flex items-center justify-center bg-gray-50">
+    <div class="w-full aspect-square flex items-center justify-center overflow-hidden rounded-xl bg-white shadow-inner">
+                        <img src="images/2000.jpg"
+                         alt="Кале 2000 (+серцевина Стандарт)" 
+                         class="w-[75%] h-[75%] object-contain transition-transform duration-500 hover:scale-110">
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 p-6 md:p-10 border-l border-gray-100 flex flex-col justify-center">
+    <div class="mb-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-dark bg-brand-dark/10 px-3 py-1 rounded">Категорія: Фурнітура</span>
+    </div>
+    
+    <h1 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4">Кале 2000 (+серцевина Стандарт)</h1>
+    
+    <div class="flex items-center gap-4 mb-6">
+        <span class="text-4xl font-bold text-brand-gold">482 грн</span>
+        <span class="text-sm text-green-600 font-semibold bg-green-50 px-2 py-1 rounded"><i class="fa-solid fa-check mr-1"></i> В наявності</span>
+    </div>
+
+    <div class="mb-6">
+       
+        <p class="text-gray-700 leading-relaxed">
+            Врізний замок Kale Kilit 2000 із серцевиною стандарт – надійний турецький механізм для металевих дверей. Забезпечує стабільну роботу та довговічність.
+        </p>
+    </div>
+
+    <div class="mb-8 p-5 bg-gray-50 rounded-xl border border-gray-100">
+        <h3 class="text-sm font-bold text-brand-dark uppercase tracking-widest mb-3">Детальна інформація</h3>
+        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            Замок Kale 2000 із серцевиною стандарт – це якісний врізний замок від турецького виробника Kale Kilit, який добре зарекомендував себе на українському ринку. Модель 2000 підходить для встановлення у вхідні металеві двері квартир, будинків та комерційних приміщень. Надійний механізм та міцний корпус забезпечують тривалий термін експлуатації.
+        </p>
+
+        <div class="grid grid-cols-1 gap-1 mb-4 text-sm border-t border-gray-200 pt-3">
+            <div class="flex justify-between"><span class="text-gray-500">Тип:</span> <span class="font-medium text-gray-800">Врізний циліндровий</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Комплект:</span> <span class="font-medium text-gray-800">Корпус + серцевина стандарт</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Призначення:</span> <span class="font-medium text-gray-800">Металеві двері</span></div>
+            <div class="flex justify-between"><span class="text-gray-500">Виробник:</span> <span class="font-medium text-gray-800">Туреччина (Kale Kilit)</span></div>
+        </div>
+        
+        <h4 class="font-bold text-gray-800 text-sm mb-2">Переваги:</h4>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-sm text-gray-600">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-brand-gold text-[10px]"></i> якість бренду Kale</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-brand-gold text-[10px]"></i> плавний хід</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-brand-gold text-[10px]"></i> стійкість до зносу</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-brand-gold text-[10px]"></i> заміна серцевини</li>
+        </ul>
+    </div>
+
+    <div class="space-y-4">
+        <button onclick="addToCart('Кале 2000 (+серцевина Стандарт)', 482, 'images/2000.jpg')" 
+                class="w-full flex items-center justify-center bg-brand-dark text-white font-bold py-4 px-8 rounded-xl hover:bg-blue-800 transition-all transform hover:-translate-y-1 shadow-lg text-lg group">
+            <i class="fa-solid fa-cart-shopping mr-3 text-2xl group-hover:scale-110 transition-transform"></i> 
+            Додати у кошик
+        </button>
+
+        <a href="tel:+380671032400" 
+           class="flex items-center justify-center bg-transparent text-brand-dark border-2 border-brand-dark font-bold py-4 px-8 rounded-xl hover:bg-brand-dark hover:text-white transition-all text-lg">
+            <i class="fa-solid fa-phone mr-3"></i> Консультація
+        </a>
+    </div>
+</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 md:py-12 border-t border-white/10 relative z-10">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4"></a>
+                <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Меню</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="about.html" class="hover:text-brand-gold">Про нас</a></li>
+                    <li><a href="catalog.html" class="hover:text-brand-gold">Каталог</a></li>
+                    <li><a href="dealers.html" class="hover:text-brand-gold">Співпраця</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакти</h4>
+                <p class="text-sm">с. Фурси, вул. Промислова, 22</p>
+                <p class="text-sm">068 968 32 32</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Соцмережі</h4>
+                <div class="flex space-x-4">
+                   <a href="https://www.facebook.com/dveribastionbc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/dveri_bastionbc/" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@bastionbc?is_from_webapp=1&sender_device=pc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://www.youtube.com/@%D0%94%D0%92%D0%95%D0%A0%D0%86-%D0%91%D0%90%D0%A1%D0%A2%D0%86%D0%9E%D0%9D-%D0%91%D0%A6" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 text-center text-sm border-t border-white/10 pt-6 mt-8 text-gray-400">&copy; 2026 БАСТІОН-БЦ.</div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Мобільне меню
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+            // Оновити бейдж
+            updateCartBadge();
+        });
+
+        // Функція додавання в кошик
+        function addToCart(name, price, imageSrc) {
+            let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+            
+            let existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: Date.now(),
+                    name: name,
+                    price: price,
+                    image: imageSrc,
+                    quantity: 1
+                });
+            }
+
+            localStorage.setItem('myCart', JSON.stringify(cart));
+            updateCartBadge();
+            alert(`Товар "${name}" успішно додано до кошика!`);
+        }
+
+        // Оновлення лічильника
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            
+            const badges = [
+                document.getElementById('cart-badge-desktop'),
+                document.getElementById('cart-badge-mobile')
+            ];
+
+            badges.forEach(badge => {
+                if (badge) {
+                    if (totalItems > 0) {
+                        badge.innerText = totalItems;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

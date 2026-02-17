@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Про нас | БАСТІОН-БЦ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        brand: { dark: '#0047ab', gold: '#d4af37', gray: '#333333', light: '#f4f4f4' }
+                    }, 
+                    fontFamily: { sans: ['"Open Sans"', 'sans-serif'], heading: ['"Montserrat"', 'sans-serif'] } 
+                } 
+            } 
+        }
+    </script>
+    <style>
+        body { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        /* Сховати скролбар для каруселі */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-heading font-bold tracking-wider flex items-center gap-2">
+                <div class="flex items-center">
+                    <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-6 text-sm font-semibold uppercase tracking-wide">
+                <a href="index.html" class="nav-link hover:text-brand-gold transition pb-1">Головна</a>
+                <a href="about.html" class="nav-link active hover:text-brand-gold transition pb-1">Про нас</a>
+                <a href="catalog.html" class="nav-link hover:text-brand-gold transition pb-1">Каталог</a>
+                <a href="constructives.html" class="nav-link hover:text-brand-gold transition pb-1">Конструктиви</a>
+                <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
+
+                <div class="h-6 w-px bg-white/20 mx-2"></div>
+
+                <a href="tel:+380671032400" class="flex items-center gap-2 hover:text-brand-gold transition normal-case">
+                    <i class="fa-solid fa-phone text-brand-gold"></i>
+                    <span class="font-bold whitespace-nowrap">067 103 24 00</span>
+                </a>
+
+                <a href="cart.html" class="hover:text-brand-gold transition text-lg relative group" title="Кошик">
+                    <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition-transform"></i>
+                    <span id="cart-badge-desktop" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                </a>
+
+                <a href="dealers.html" class="border border-brand-gold text-brand-gold px-4 py-1 rounded hover:bg-brand-gold hover:text-white transition">Для дилерів</a>
+            </div>
+
+            <div class="flex items-center gap-4 md:hidden">
+                <a href="cart.html" class="text-xl focus:outline-none relative text-brand-gold">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-badge-mobile" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                </a>
+                
+                <button id="mobile-menu-btn" class="text-2xl focus:outline-none p-2">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 absolute w-full top-full left-0 shadow-2xl">
+            <a href="index.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Головна</a>
+            <a href="about.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Про нас</a>
+            <a href="catalog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Каталог</a>
+            <a href="constructives.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Конструктиви</a>
+            <a href="contacts.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Контакти</a>
+            
+            <a href="tel:+380671032400" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg font-bold text-brand-gold">
+                <i class="fa-solid fa-phone mr-2"></i> 067 103 24 00
+            </a>
+
+            <a href="dealers.html" class="block py-4 px-6 text-brand-gold font-bold hover:bg-white/10 text-lg">Для дилерів</a>
+        </div>
+    </nav>
+    
+    <div class="h-[72px] md:h-[88px]"></div>
+
+    <main class="flex-grow container mx-auto px-4 py-12 fade-in">
+        
+        <div class="bg-white/95 rounded-2xl shadow-2xl p-8 md:p-12 mb-12">
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-5xl font-heading font-bold text-brand-dark mb-4">Про компанію БАСТІОН-БЦ</h1>
+                <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div class="prose max-w-none text-gray-700 leading-relaxed">
+                <p class="mb-6 text-lg">
+                    Компанія <strong>«БАСТІОН-БЦ»</strong> — це лідер у виробництві надійних вхідних дверей у регіоні. Ми працюємо для того, щоб ваш дім був безпечним, теплим та затишним.
+                </p>
+                <p class="mb-6">
+                    Використовуючи сучасне обладнання та якісні матеріали, ми створюємо двері, які відповідають найвищим стандартам якості. Наша продукція поєднує в собі міцність металу, елегантність дизайну та передові технології захисту.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-8 my-10">
+                    <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-medal text-4xl text-brand-gold mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Якість</h3>
+                        <p>Контроль на кожному етапі виробництва.</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-shield-halved text-4xl text-brand-gold mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Надійність</h3>
+                        <p>Використовуємо тільки сертифіковані замки та метал.</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-clock text-4xl text-brand-gold mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Досвід</h3>
+                        <p>Багаторічний досвід роботи на ринку України.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-4xl font-heading font-bold text-center text-white mb-8 drop-shadow-lg">Наше виробництво</h2>
+            
+            <div class="relative group max-w-6xl mx-auto">
+                <div id="production-carousel" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide gap-4 px-4 py-4">
+                    
+                    <div class="flex-shrink-0 w-[85%] md:w-2/3 lg:w-1/2 snap-center transition-transform duration-300 hover:scale-[1.02]">
+                        <img src="images/1.webp" alt="Виробництво 1" class="rounded-2xl shadow-2xl h-[300px] md:h-[450px] w-full object-cover">
+                    </div>
+                    
+                    <div class="flex-shrink-0 w-[85%] md:w-2/3 lg:w-1/2 snap-center transition-transform duration-300 hover:scale-[1.02]">
+                        <img src="images/2.webp" alt="Виробництво 2" class="rounded-2xl shadow-2xl h-[300px] md:h-[450px] w-full object-cover">
+                    </div>
+
+                    <div class="flex-shrink-0 w-[85%] md:w-2/3 lg:w-1/2 snap-center transition-transform duration-300 hover:scale-[1.02]">
+                        <img src="images/3.webp" alt="Виробництво 3" class="rounded-2xl shadow-2xl h-[300px] md:h-[450px] w-full object-cover">
+                    </div>
+
+                    <div class="flex-shrink-0 w-[85%] md:w-2/3 lg:w-1/2 snap-center transition-transform duration-300 hover:scale-[1.02]">
+                        <img src="images/4.webp" alt="Виробництво 4" class="rounded-2xl shadow-2xl h-[300px] md:h-[450px] w-full object-cover">
+                    </div>
+
+                </div>
+
+                <button onclick="scrollProduction(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-brand-dark/50 hover:bg-brand-gold text-white p-4 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:block z-10 backdrop-blur-sm">
+                    <i class="fa-solid fa-chevron-left text-xl"></i>
+                </button>
+                <button onclick="scrollProduction(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-brand-dark/50 hover:bg-brand-gold text-white p-4 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:block z-10 backdrop-blur-sm">
+                    <i class="fa-solid fa-chevron-right text-xl"></i>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 md:py-12 border-t border-white/10 relative z-10">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4"></a>
+                <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Меню</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="about.html" class="hover:text-brand-gold">Про нас</a></li>
+                    <li><a href="catalog.html" class="hover:text-brand-gold">Каталог</a></li>
+                    <li><a href="dealers.html" class="hover:text-brand-gold">Співпраця</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакти</h4>
+                <p class="text-sm">с. Фурси, вул. Промислова, 22</p>
+                <p class="text-sm">068 968 32 32</p>
+            </div>
+            <div>
+    <h4 class="text-white font-bold mb-4">Соцмережі</h4>
+    <div class="flex space-x-4">
+        <a href="https://www.facebook.com/dveribastionbc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/dveri_bastionbc/" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@bastionbc?is_from_webapp=1&sender_device=pc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://www.youtube.com/@%D0%94%D0%92%D0%95%D0%A0%D0%86-%D0%91%D0%90%D0%A1%D0%A2%D0%86%D0%9E%D0%9D-%D0%91%D0%A6" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+    </div>
+</div>
+        </div>
+        <div class="container mx-auto px-6 text-center text-sm border-t border-white/10 pt-6 mt-8 text-gray-400">&copy; 2026 БАСТІОН-БЦ.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Мобільне меню
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // 2. Логіка кошика (бейджі)
+            const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            
+            const badges = [
+                document.getElementById('cart-badge-desktop'),
+                document.getElementById('cart-badge-mobile')
+            ];
+
+            badges.forEach(badge => {
+                if (badge) {
+                    if (totalItems > 0) {
+                        badge.innerText = totalItems;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // 3. Функція для прокрутки каруселі виробництва
+        function scrollProduction(direction) {
+            const container = document.getElementById('production-carousel');
+            if (container) {
+                // Прокручуємо на половину ширини контейнера для плавності
+                const scrollAmount = container.offsetWidth / 1.5;
+                container.scrollBy({
+                    left: direction * scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
