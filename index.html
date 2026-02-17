@@ -140,13 +140,11 @@
     </div>
 
  <script>
-    // 1. Інтерфейс (Меню, Кошик)
+    // 1. Інтерфейс
     document.addEventListener('DOMContentLoaded', () => {
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        if (menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        }
+        if (menuBtn && mobileMenu) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         updateCartBadge();
     });
 
@@ -155,18 +153,12 @@
         const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
         const badges = [document.getElementById('cart-badge-desktop'), document.getElementById('cart-badge-mobile')];
         badges.forEach(badge => {
-            if (badge) {
-                if (totalItems > 0) {
-                    badge.innerText = totalItems;
-                    badge.classList.remove('hidden');
-                } else {
-                    badge.classList.add('hidden');
-                }
-            }
+            if (badge) badge.classList.toggle('hidden', totalItems === 0);
+            if (badge) badge.innerText = totalItems;
         });
     }
 
-    // 2. Telegram (Ваш працюючий бот)
+    // 2. Telegram
     document.getElementById('tg-consult-form')?.addEventListener('submit', async function(e) {
         e.preventDefault();
         const btn = document.getElementById('consult-submit-btn');
@@ -174,7 +166,7 @@
         const phone = document.getElementById('consult-phone').value;
         const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
         const chatId = '1266321063';
-        const message = `<b>🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ</b>\n\n👤 <b>Ім'я:</b> ${name}\n📞 <b>Телефон:</b> ${phone}`;
+        const message = `🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
         
         btn.disabled = true;
         try {
@@ -185,12 +177,39 @@
             });
             alert('Дякуємо! Менеджер зателефонує вам.');
             this.reset();
-        } catch (error) { alert('Помилка відправки в Telegram.'); }
+        } catch (error) { alert('Помилка відправки.'); }
         finally { btn.disabled = false; }
     });
 
-    // 3. AI ЧАТ (ВИПРАВЛЕНО ПІД ВАШУ МОДЕЛЬ GEMINI 3)
+    // 3. AI ЧАТ З ЖОРСТКОЮ ІНСТРУКЦІЄЮ
     const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
+    
+    // ОСЬ ТУТ МИ ВЧИМО БОТА
+    let chatHistory = [
+        {
+            role: "user",
+            parts: [{ text: `
+                ТИ — ЕКСПЕРТ-КОНСУЛЬТАНТ КОМПАНІЇ "БАСТІОН-БЦ" (м. Біла Церква).
+                ТВОЯ ТЕМА: Виключно виготовлення та продаж вхідних металевих дверей.
+                
+                ЗАЛІЗНІ ПРАВИЛА:
+                1. ⛔ ЦІНИ: Ти НЕ знаєш цін. НІКОЛИ не називай цифру. На питання про ціну відповідай: "Вартість розраховується індивідуально. Уточніть у менеджера: 067 103 24 00".
+                2. ⛔ ТЕМИ-ТАБУ: Ми НЕ продаємо: плитоноски, бронежилети, зброю. Якщо питають — кажи: "Ми займаємось тільки дверима".
+                3. ⛔ СТИЛЬ: Відповідай дуже коротко (максимум 2-3 речення).
+                4. ⛔ ПОВТОРЕННЯ: Не вітайся у кожному повідомленні.
+                
+                ТВОЇ ЗНАННЯ:
+                - Замок 510: Надійний сувальдний замок, захист від висвердлювання.
+                - Сайт: bastionbc2024-hub.github.io/bastion-bc/
+                
+                Поводься як ввічливий, але конкретний менеджер.
+            ` }]
+        },
+        {
+            role: "model",
+            parts: [{ text: "Зрозумів. Я консультант Бастіон-БЦ. Продаю тільки двері. Ціни не називаю. Відповідаю коротко." }]
+        }
+    ];
 
     function toggleChat() {
         const box = document.getElementById('ai-chat-box');
@@ -208,61 +227,31 @@
         input.value = '';
         messages.scrollTop = messages.scrollHeight;
 
+        chatHistory.push({ role: "user", parts: [{ text: text }] });
+
         try {
-            // УВАГА: Тут вказана ваша модель зі скріншоту (gemini-3-flash-preview)
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
             
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            // Щоб уникнути помилок формату, інструкцію передаємо прямо в тексті
-                            text: "Ти консультант Bastion-BC. Сайт: https://bastionbc2024-hub.github.io/bastion-bc/. Відповідай українською. Питання клієнта: " + text
-                        }]
-                    }]
-                })
+                body: JSON.stringify({ contents: chatHistory })
             });
 
+            if (!response.ok) throw new Error('API Error');
+
             const data = await response.json();
-
-            if (!response.ok) {
-                // Якщо раптом і ця модель не підійде, ми спробуємо ще одну (автоматичний запасний варіант)
-                console.warn("Gemini 3 failed, trying fallback...");
-                throw new Error(data.error ? data.error.message : 'API Error');
-            }
-
             const botResponse = data.candidates[0].content.parts[0].text;
+            
+            chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
+
             messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
             messages.scrollTop = messages.scrollHeight;
 
         } catch (e) {
-            console.error("AI Error:", e);
-            // Запасний варіант: якщо Gemini 3 ще закрита, пробуємо стандартну Gemini Pro
-            tryFallbackModel(text, messages);
+            console.error(e);
+            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка. Спробуйте пізніше.</div>`;
         }
-    }
-
-    async function tryFallbackModel(text, messages) {
-        try {
-             // Запасна стандартна модель
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: [{ parts: [{ text: "Ти консультант дверей. " + text }] }] })
-            });
-            const data = await response.json();
-            if(data.candidates) {
-                 const botResponse = data.candidates[0].content.parts[0].text;
-                 messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
-                 messages.scrollTop = messages.scrollHeight;
-                 return;
-            }
-        } catch(err) {}
-        
-        messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Сервіс тимчасово недоступний. Спробуйте пізніше.</div>`;
     }
 
     document.getElementById('ai-user-input')?.addEventListener('keypress', (e) => {
@@ -271,6 +260,7 @@
 </script>
 </body>
 </html>
+
 
 
 
