@@ -189,7 +189,7 @@
         finally { btn.disabled = false; }
     });
 
-    // 3. AI ЧАТ ЛОГІКА (ОСТАТОЧНЕ ВИПРАВЛЕННЯ)
+    // 3. AI ЧАТ ЛОГІКА (ВИПРАВЛЕНО ПІД ВЕРСІЮ V1BETA)
     const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
 
     function toggleChat() {
@@ -209,8 +209,8 @@
         messages.scrollTop = messages.scrollHeight;
 
         try {
-            // ВИПРАВЛЕНО: Використовуємо v1beta та модель gemini-1.5-flash
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+            // ВИКОРИСТОВУЄМО v1beta ТА МОДЕЛЬ gemini-1.5-flash-8b
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=${GEMINI_API_KEY}`;
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -236,7 +236,7 @@
 
         } catch (e) {
             console.error("AI Error:", e);
-            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка зв'язку. Спробуйте ще раз.</div>`;
+            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка зв'язку. Перевірте з'єднання.</div>`;
         }
     }
 
@@ -246,6 +246,7 @@
 </script>
 </body>
 </html>
+
 
 
 
