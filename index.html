@@ -140,100 +140,107 @@
     </div>
 
     <script>
-        // 1. Мобільне меню та Кошик
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (menuBtn && mobileMenu) {
-                menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            }
-            updateCartBadge();
-        });
+    // 1. Мобільне меню та Кошик
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        }
+        updateCartBadge();
+    });
 
-        function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('myCart')) || [];
-            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            const badges = [document.getElementById('cart-badge-desktop'), document.getElementById('cart-badge-mobile')];
-            badges.forEach(badge => {
-                if (badge) {
-                    if (totalItems > 0) {
-                        badge.innerText = totalItems;
-                        badge.classList.remove('hidden');
-                    } else {
-                        badge.classList.add('hidden');
-                    }
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        const badges = [document.getElementById('cart-badge-desktop'), document.getElementById('cart-badge-mobile')];
+        badges.forEach(badge => {
+            if (badge) {
+                if (totalItems > 0) {
+                    badge.innerText = totalItems;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
                 }
-            });
-        }
-
-        // 2. Telegram Форма
-        document.getElementById('tg-consult-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('consult-submit-btn');
-            const name = document.getElementById('consult-name').value;
-            const phone = document.getElementById('consult-phone').value;
-            const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
-            const chatId = '1266321063';
-            const message = `🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
-            btn.disabled = true;
-            try {
-                await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
-                });
-                alert('Дякуємо! Менеджер зателефонує вам.');
-                this.reset();
-            } catch (error) { alert('Помилка відправки.'); }
-            finally { btn.disabled = false; }
-        });
-
-        // 3. AI ЧАТ ЛОГІКА
-        const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
-
-        function toggleChat() {
-            const box = document.getElementById('ai-chat-box');
-            if (box) box.style.display = box.style.display === 'none' ? 'flex' : 'none';
-        }
-
-        async function askGemini() {
-            const input = document.getElementById('ai-user-input');
-            const messages = document.getElementById('ai-messages');
-            const text = input.value.trim();
-            if (!text) return;
-
-            messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%; font-size: 13px;">${text}</div>`;
-            input.value = '';
-            messages.scrollTop = messages.scrollHeight;
-
-            try {
-                // ВИКОРИСТОВУЄМО ПРАВИЛЬНИЙ URL v1 ТА МОДЕЛЬ gemini-1.5-flash
-                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: text }] }],
-                        system_instruction: { 
-                            parts: [{ text: "Ти — консультант Bastion-BC. Твоє джерело — сайт https://bastionbc2024-hub.github.io/bastion-bc/. Відповідай українською." }] 
-                        }
-                    })
-                });
-
-                if (!response.ok) throw new Error('Помилка сервера');
-
-                const data = await response.json();
-                const botResponse = data.candidates[0].content.parts[0].text;
-                messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
-                messages.scrollTop = messages.scrollHeight;
-            } catch (e) {
-                messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка з'єднання.</div>`;
             }
-        }
-
-        document.getElementById('ai-user-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') askGemini();
         });
-    </script>
+    }
+
+    // 2. Telegram Форма
+    document.getElementById('tg-consult-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('consult-submit-btn');
+        const name = document.getElementById('consult-name').value;
+        const phone = document.getElementById('consult-phone').value;
+        const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
+        const chatId = '1266321063';
+        const message = `🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
+        btn.disabled = true;
+        try {
+            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
+            });
+            alert('Дякуємо! Менеджер зателефонує вам.');
+            this.reset();
+        } catch (error) { alert('Помилка відправки.'); }
+        finally { btn.disabled = false; }
+    });
+
+    // 3. AI ЧАТ ЛОГІКА (ВИПРАВЛЕНО ДЛЯ v1)
+    const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
+
+    function toggleChat() {
+        const box = document.getElementById('ai-chat-box');
+        if (box) box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    async function askGemini() {
+        const input = document.getElementById('ai-user-input');
+        const messages = document.getElementById('ai-messages');
+        const text = input.value.trim();
+        if (!text) return;
+
+        messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%; font-size: 13px;">${text}</div>`;
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+
+        try {
+            const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ role: "user", parts: [{ text: text }] }],
+                    systemInstruction: { 
+                        role: "user", 
+                        parts: [{ text: "Ти — консультант Bastion-BC. Відповідай ввічливо українською. Використовуй дані з сайту https://bastionbc2024-hub.github.io/bastion-bc/." }] 
+                    },
+                    generationConfig: { temperature: 1, topP: 0.95, maxOutputTokens: 8192 }
+                })
+            });
+
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error ? data.error.message : 'Unknown error');
+            }
+
+            const botResponse = data.candidates[0].content.parts[0].text;
+            messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
+            messages.scrollTop = messages.scrollHeight;
+        } catch (e) {
+            console.error(e);
+            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка запиту. Перевірте консоль.</div>`;
+        }
+    }
+
+    document.getElementById('ai-user-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') askGemini();
+    });
+</script>
 </body>
 </html>
+
