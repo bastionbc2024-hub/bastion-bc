@@ -140,7 +140,7 @@
     </div>
 
   <script>
-    // 1. Загальна логіка інтерфейсу (Меню та Кошик)
+    // 1. Інтерфейс (Меню, Кошик)
     document.addEventListener('DOMContentLoaded', () => {
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -166,7 +166,7 @@
         });
     }
 
-    // 2. Telegram Форма (Ваш робочий бот)
+    // 2. Telegram (Ваш працюючий бот)
     document.getElementById('tg-consult-form')?.addEventListener('submit', async function(e) {
         e.preventDefault();
         const btn = document.getElementById('consult-submit-btn');
@@ -189,7 +189,7 @@
         finally { btn.disabled = false; }
     });
 
-    // 3. AI ЧАТ ЛОГІКА (ВИПРАВЛЕНО ПІД ВЕРСІЮ V1BETA)
+    // 3. AI ЧАТ (ВИПРАВЛЕНО ПІД ВАШУ МОДЕЛЬ GEMINI 3)
     const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
 
     function toggleChat() {
@@ -209,8 +209,8 @@
         messages.scrollTop = messages.scrollHeight;
 
         try {
-            // ВИКОРИСТОВУЄМО v1beta ТА МОДЕЛЬ gemini-1.5-flash-8b
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=${GEMINI_API_KEY}`;
+            // УВАГА: Тут вказана ваша модель зі скріншоту (gemini-3-flash-preview)
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -218,7 +218,8 @@
                 body: JSON.stringify({
                     contents: [{
                         parts: [{
-                            text: "Ти консультант Bastion-BC. Відповідай ввічливо українською. Питання: " + text
+                            // Щоб уникнути помилок формату, інструкцію передаємо прямо в тексті
+                            text: "Ти консультант Bastion-BC. Сайт: https://bastionbc2024-hub.github.io/bastion-bc/. Відповідай українською. Питання клієнта: " + text
                         }]
                     }]
                 })
@@ -227,6 +228,8 @@
             const data = await response.json();
 
             if (!response.ok) {
+                // Якщо раптом і ця модель не підійде, ми спробуємо ще одну (автоматичний запасний варіант)
+                console.warn("Gemini 3 failed, trying fallback...");
                 throw new Error(data.error ? data.error.message : 'API Error');
             }
 
@@ -236,8 +239,30 @@
 
         } catch (e) {
             console.error("AI Error:", e);
-            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка зв'язку. Перевірте з'єднання.</div>`;
+            // Запасний варіант: якщо Gemini 3 ще закрита, пробуємо стандартну Gemini Pro
+            tryFallbackModel(text, messages);
         }
+    }
+
+    async function tryFallbackModel(text, messages) {
+        try {
+             // Запасна стандартна модель
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: "Ти консультант дверей. " + text }] }] })
+            });
+            const data = await response.json();
+            if(data.candidates) {
+                 const botResponse = data.candidates[0].content.parts[0].text;
+                 messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
+                 messages.scrollTop = messages.scrollHeight;
+                 return;
+            }
+        } catch(err) {}
+        
+        messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Сервіс тимчасово недоступний. Спробуйте пізніше.</div>`;
     }
 
     document.getElementById('ai-user-input')?.addEventListener('keypress', (e) => {
@@ -246,6 +271,7 @@
 </script>
 </body>
 </html>
+
 
 
 
