@@ -140,126 +140,115 @@
     </div>
 
  <script>
-    // 1. Інтерфейс
-    document.addEventListener('DOMContentLoaded', () => {
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (menuBtn && mobileMenu) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        updateCartBadge();
-    });
-
-    function updateCartBadge() {
-        const cart = JSON.parse(localStorage.getItem('myCart')) || [];
-        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-        const badges = [document.getElementById('cart-badge-desktop'), document.getElementById('cart-badge-mobile')];
-        badges.forEach(badge => {
-            if (badge) badge.classList.toggle('hidden', totalItems === 0);
-            if (badge) badge.innerText = totalItems;
+        // 1. ЛОГІКА МЕНЮ
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
-    }
 
-    // 2. Telegram
-    document.getElementById('tg-consult-form')?.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('consult-submit-btn');
-        const name = document.getElementById('consult-name').value;
-        const phone = document.getElementById('consult-phone').value;
-        const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
-        const chatId = '1266321063';
-        const message = `🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
+        // 2. ЛОГІКА TELEGRAM
+        document.getElementById('tg-consult-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('consult-submit-btn');
+            btn.innerText = 'Відправка...'; btn.disabled = true;
+            try {
+                const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
+                const chatId = '1266321063';
+                const msg = `🔔 ЗАЯВКА\n👤 ${document.getElementById('consult-name').value}\n📞 ${document.getElementById('consult-phone').value}`;
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({chat_id: chatId, text: msg})
+                });
+                alert('Дякуємо! Ми зателефонуємо.');
+                this.reset();
+            } catch (err) { alert('Помилка відправки.'); }
+            finally { btn.innerText = 'Замовити Дзвінок'; btn.disabled = false; }
+        });
+
+        // 3. ЛОГІКА AI БОТА (ВИПРАВЛЕНА)
+        const API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
         
-        btn.disabled = true;
-        try {
-            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
-            });
-            alert('Дякуємо! Менеджер зателефонує вам.');
-            this.reset();
-        } catch (error) { alert('Помилка відправки.'); }
-        finally { btn.disabled = false; }
-    });
+        // Ось тут ми "прошиваємо" йому мозок
+        let chatHistory = [
+            {
+                role: "user",
+                parts: [{ text: `
+                    ТИ - МЕНЕДЖЕР КОМПАНІЇ "БАСТІОН-БЦ". ТЕМА: ВХІДНІ МЕТАЛЕВІ ДВЕРІ.
+                    
+                    ЗАБОРОНИ:
+                    1. Не говори про військову амуніцію, плитоноски, зброю. Ми продаємо ДВЕРІ.
+                    2. Не називай ціни. На питання про ціну кажи: "Ціну розраховує менеджер. Телефонуйте: 067 103 24 00".
+                    3. Не пиши довгі тексти. Максимум 2 речення.
+                    4. Не вітайся постійно.
+                    
+                    ЗНАННЯ:
+                    - Виробництво: м. Біла Церква.
+                    - Доставка: по всій Україні.
+                    - Замки: Використовуємо надійні (наприклад, 510 серія).
+                    
+                    Якщо зрозумів - поводься як професіонал.
+                ` }]
+            },
+            {
+                role: "model",
+                parts: [{ text: "Зрозумів. Я консультант дверей Бастіон-БЦ. Ніякої зброї, ніяких вигаданих цін. Відповідаю коротко." }]
+            }
+        ];
 
-    // 3. AI ЧАТ З ЖОРСТКОЮ ІНСТРУКЦІЄЮ
-    const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
-    
-    // ОСЬ ТУТ МИ ВЧИМО БОТА
-    let chatHistory = [
-        {
-            role: "user",
-            parts: [{ text: `
-                ТИ — ЕКСПЕРТ-КОНСУЛЬТАНТ КОМПАНІЇ "БАСТІОН-БЦ" (м. Біла Церква).
-                ТВОЯ ТЕМА: Виключно виготовлення та продаж вхідних металевих дверей.
-                
-                ЗАЛІЗНІ ПРАВИЛА:
-                1. ⛔ ЦІНИ: Ти НЕ знаєш цін. НІКОЛИ не називай цифру. На питання про ціну відповідай: "Вартість розраховується індивідуально. Уточніть у менеджера: 067 103 24 00".
-                2. ⛔ ТЕМИ-ТАБУ: Ми НЕ продаємо: плитоноски, бронежилети, зброю. Якщо питають — кажи: "Ми займаємось тільки дверима".
-                3. ⛔ СТИЛЬ: Відповідай дуже коротко (максимум 2-3 речення).
-                4. ⛔ ПОВТОРЕННЯ: Не вітайся у кожному повідомленні.
-                
-                ТВОЇ ЗНАННЯ:
-                - Замок 510: Надійний сувальдний замок, захист від висвердлювання.
-                - Сайт: bastionbc2024-hub.github.io/bastion-bc/
-                
-                Поводься як ввічливий, але конкретний менеджер.
-            ` }]
-        },
-        {
-            role: "model",
-            parts: [{ text: "Зрозумів. Я консультант Бастіон-БЦ. Продаю тільки двері. Ціни не називаю. Відповідаю коротко." }]
+        function toggleChat() {
+            const box = document.getElementById('ai-chat-box');
+            box.style.display = box.style.display === 'none' ? 'flex' : 'none';
         }
-    ];
 
-    function toggleChat() {
-        const box = document.getElementById('ai-chat-box');
-        if (box) box.style.display = box.style.display === 'none' ? 'flex' : 'none';
-    }
+        async function askGemini() {
+            const input = document.getElementById('ai-user-input');
+            const messages = document.getElementById('ai-messages');
+            const userText = input.value.trim();
+            if (!userText) return;
 
-    async function askGemini() {
-        const input = document.getElementById('ai-user-input');
-        const messages = document.getElementById('ai-messages');
-        const text = input.value.trim();
-        
-        if (!text) return;
-
-        messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%; font-size: 13px;">${text}</div>`;
-        input.value = '';
-        messages.scrollTop = messages.scrollHeight;
-
-        chatHistory.push({ role: "user", parts: [{ text: text }] });
-
-        try {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-            
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: chatHistory })
-            });
-
-            if (!response.ok) throw new Error('API Error');
-
-            const data = await response.json();
-            const botResponse = data.candidates[0].content.parts[0].text;
-            
-            chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
-
-            messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
+            // Відображаємо питання користувача
+            messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 90%;">${userText}</div>`;
+            input.value = '';
             messages.scrollTop = messages.scrollHeight;
 
-        } catch (e) {
-            console.error(e);
-            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка. Спробуйте пізніше.</div>`;
-        }
-    }
+            // Додаємо в історію
+            chatHistory.push({ role: "user", parts: [{ text: userText }] });
 
-    document.getElementById('ai-user-input')?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') askGemini();
-    });
-</script>
+            try {
+                // Використовуємо v1beta (найбільш стабільна для безкоштовних ключів)
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: chatHistory })
+                });
+
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error?.message || 'Помилка сервера');
+                }
+
+                const botText = data.candidates[0].content.parts[0].text;
+                
+                // Зберігаємо відповідь, щоб він пам'ятав контекст
+                chatHistory.push({ role: "model", parts: [{ text: botText }] });
+
+                messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 90%;">${botText}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+
+            } catch (error) {
+                console.error(error);
+                messages.innerHTML += `<div style="color: red; font-size: 12px; text-align: center;">Помилка: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('ai-user-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') askGemini();
+        });
+    </script>
 </body>
 </html>
+
 
 
 
