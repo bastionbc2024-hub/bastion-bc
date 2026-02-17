@@ -139,7 +139,7 @@
         </div>
     </div>
 
-   <script>
+  <script>
     // 1. Загальна логіка інтерфейсу (Меню та Кошик)
     document.addEventListener('DOMContentLoaded', () => {
         const menuBtn = document.getElementById('mobile-menu-btn');
@@ -174,7 +174,7 @@
         const phone = document.getElementById('consult-phone').value;
         const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
         const chatId = '1266321063';
-        const message = `🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
+        const message = `<b>🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ</b>\n\n👤 <b>Ім'я:</b> ${name}\n📞 <b>Телефон:</b> ${phone}`;
         
         btn.disabled = true;
         try {
@@ -189,7 +189,7 @@
         finally { btn.disabled = false; }
     });
 
-    // 3. AI ЧАТ ЛОГІКА (ВИПРАВЛЕНА ПОМИЛКА 400)
+    // 3. AI ЧАТ ЛОГІКА (ОСТАТОЧНЕ ВИПРАВЛЕННЯ)
     const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
 
     function toggleChat() {
@@ -204,14 +204,13 @@
         
         if (!text) return;
 
-        // Додаємо повідомлення користувача в інтерфейс
         messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%; font-size: 13px;">${text}</div>`;
         input.value = '';
         messages.scrollTop = messages.scrollHeight;
 
         try {
-            // Використовуємо стабільний шлях v1
-            const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+            // ВИПРАВЛЕНО: Використовуємо v1beta та модель gemini-1.5-flash
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -219,8 +218,7 @@
                 body: JSON.stringify({
                     contents: [{
                         parts: [{
-                            // Додаємо інструкцію прямо в текст запиту для 100% сумісності
-                            text: "Ти консультант Bastion-BC. Відповідай коротко українською. Питання клієнта: " + text
+                            text: "Ти консультант Bastion-BC. Відповідай ввічливо українською. Питання: " + text
                         }]
                     }]
                 })
@@ -229,7 +227,7 @@
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error ? data.error.message : 'Unknown API Error');
+                throw new Error(data.error ? data.error.message : 'API Error');
             }
 
             const botResponse = data.candidates[0].content.parts[0].text;
@@ -238,16 +236,16 @@
 
         } catch (e) {
             console.error("AI Error:", e);
-            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка: ${e.message}</div>`;
+            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка зв'язку. Спробуйте ще раз.</div>`;
         }
     }
 
-    // Слухач для клавіші Enter
     document.getElementById('ai-user-input')?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') askGemini();
     });
 </script>
 </body>
 </html>
+
 
 
