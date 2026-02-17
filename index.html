@@ -139,8 +139,8 @@
         </div>
     </div>
 
-    <script>
-    // 1. Мобільне меню та Кошик
+   <script>
+    // 1. Загальна логіка інтерфейсу (Меню та Кошик)
     document.addEventListener('DOMContentLoaded', () => {
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -166,8 +166,8 @@
         });
     }
 
-    // 2. Telegram Форма
-    document.getElementById('tg-consult-form').addEventListener('submit', async function(e) {
+    // 2. Telegram Форма (Ваш робочий бот)
+    document.getElementById('tg-consult-form')?.addEventListener('submit', async function(e) {
         e.preventDefault();
         const btn = document.getElementById('consult-submit-btn');
         const name = document.getElementById('consult-name').value;
@@ -175,6 +175,7 @@
         const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
         const chatId = '1266321063';
         const message = `🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
+        
         btn.disabled = true;
         try {
             await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -184,11 +185,11 @@
             });
             alert('Дякуємо! Менеджер зателефонує вам.');
             this.reset();
-        } catch (error) { alert('Помилка відправки.'); }
+        } catch (error) { alert('Помилка відправки в Telegram.'); }
         finally { btn.disabled = false; }
     });
 
-    // 3. AI ЧАТ ЛОГІКА (ВИПРАВЛЕНО ДЛЯ v1)
+    // 3. AI ЧАТ ЛОГІКА (ВИПРАВЛЕНА ПОМИЛКА 400)
     const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
 
     function toggleChat() {
@@ -200,47 +201,53 @@
         const input = document.getElementById('ai-user-input');
         const messages = document.getElementById('ai-messages');
         const text = input.value.trim();
+        
         if (!text) return;
 
+        // Додаємо повідомлення користувача в інтерфейс
         messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%; font-size: 13px;">${text}</div>`;
         input.value = '';
         messages.scrollTop = messages.scrollHeight;
 
         try {
+            // Використовуємо стабільний шлях v1
             const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
             
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ role: "user", parts: [{ text: text }] }],
-                    systemInstruction: { 
-                        role: "user", 
-                        parts: [{ text: "Ти — консультант Bastion-BC. Відповідай ввічливо українською. Використовуй дані з сайту https://bastionbc2024-hub.github.io/bastion-bc/." }] 
-                    },
-                    generationConfig: { temperature: 1, topP: 0.95, maxOutputTokens: 8192 }
+                    contents: [{
+                        parts: [{
+                            // Додаємо інструкцію прямо в текст запиту для 100% сумісності
+                            text: "Ти консультант Bastion-BC. Відповідай коротко українською. Питання клієнта: " + text
+                        }]
+                    }]
                 })
             });
 
             const data = await response.json();
-            
+
             if (!response.ok) {
-                throw new Error(data.error ? data.error.message : 'Unknown error');
+                throw new Error(data.error ? data.error.message : 'Unknown API Error');
             }
 
             const botResponse = data.candidates[0].content.parts[0].text;
             messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
             messages.scrollTop = messages.scrollHeight;
+
         } catch (e) {
-            console.error(e);
-            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка запиту. Перевірте консоль.</div>`;
+            console.error("AI Error:", e);
+            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка: ${e.message}</div>`;
         }
     }
 
-    document.getElementById('ai-user-input').addEventListener('keypress', (e) => {
+    // Слухач для клавіші Enter
+    document.getElementById('ai-user-input')?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') askGemini();
     });
 </script>
 </body>
 </html>
+
 
