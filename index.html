@@ -427,7 +427,70 @@ document.getElementById('tg-consult-form').addEventListener('submit', async func
         <div class="container mx-auto px-6 text-center text-sm border-t border-white/10 pt-6 mt-8 text-gray-400">&copy; 2026 БАСТІОН-БЦ.</div>
     </footer>
 
-    <script>
+        <script>
+    // ВАШ ПЕРСОНАЛЬНИЙ КЛЮЧ
+    const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
+
+    function toggleChat() {
+        const box = document.getElementById('ai-chat-box');
+        if (box) {
+            box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+        }
+    }
+
+    async function askGemini() {
+        const input = document.getElementById('ai-user-input');
+        const messages = document.getElementById('ai-messages');
+        const text = input.value.trim();
+        
+        if (!text) return;
+
+        // 1. Додаємо ваше повідомлення в чат
+        messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%; font-size: 13px;">${text}</div>`;
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+
+        try {
+            // 2. ПРАВИЛЬНИЙ URL (версія v1 замість v1beta усуває 404)
+            const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ 
+                        parts: [{ text: text }] 
+                    }],
+                    // Інструкція, щоб бот знав, хто він
+                    system_instruction: { 
+                        parts: [{ text: "Ти — консультант Bastion-BC. Твоє джерело — сайт https://bastionbc2024-hub.github.io/bastion-bc/. Відповідай українською." }] 
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const errorDetail = await response.json();
+                throw new Error(errorDetail.error ? errorDetail.error.message : 'Помилка сервера');
+            }
+
+            const data = await response.json();
+            const botResponse = data.candidates[0].content.parts[0].text;
+
+            // 3. Додаємо відповідь бота
+            messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
+            messages.scrollTop = messages.scrollHeight;
+
+        } catch (e) {
+            console.error("Chat Error:", e);
+            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка: ${e.message}</div>`;
+        }
+    }
+
+    // Відправка повідомлення по натисканню Enter
+    document.getElementById('ai-user-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') askGemini();
+    });
+
         document.addEventListener('DOMContentLoaded', () => {
             // 1. Мобільне меню
             const menuBtn = document.getElementById('mobile-menu-btn');
@@ -465,3 +528,4 @@ document.getElementById('tg-consult-form').addEventListener('submit', async func
     </script>
 </body>
 </html>
+
