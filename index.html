@@ -4,95 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>БАСТІОН-БЦ | Головна</title>
-    <meta name="description" content="Виробництво надійних вхідних дверей у Білій Церкві.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { brand: { dark: '#0047ab', gold: '#d4af37', gray: '#333333', light: '#f4f4f4' } },
-                    fontFamily: { sans: ['"Open Sans"', 'sans-serif'], heading: ['"Montserrat"', 'sans-serif'] }
+                    colors: { brand: { dark: '#0047ab', gold: '#d4af37' } }
                 }
             }
         }
     </script>
     <style>
-        body { background-image: url('images/bg.png'); background-size: cover; background-position: center; background-attachment: fixed; }
-        .hero-bg { background-image: linear-gradient(rgba(255, 255, 255, 0.224), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1517646331032-9e8563c523a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
-        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
-        @media (min-width: 768px) { .hero-bg { background-attachment: fixed; } }
+        body { background-image: url('images/bg.png'); background-size: cover; background-attachment: fixed; }
+        .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517646331032-9e8563c523a1?fit=crop&w=1920&q=80'); background-size: cover; }
     </style>
 </head>
 <body class="font-sans text-gray-800 flex flex-col min-h-screen">
 
-  <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
+    <nav class="fixed w-full z-50 bg-brand-dark/95 text-white shadow-lg">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl md:text-2xl font-heading font-bold tracking-wider flex items-center gap-2">
-                <div class="flex items-center">
-                    <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
-                </div>
-            </a>
-            <div class="hidden md:flex items-center space-x-6 text-sm font-semibold uppercase tracking-wide">
-                <a href="index.html" class="nav-link active hover:text-brand-gold transition pb-1">Головна</a>
-                <a href="about.html" class="nav-link hover:text-brand-gold transition pb-1">Про нас</a>
-                <a href="catalog.html" class="nav-link hover:text-brand-gold transition pb-1">Каталог</a>
-                <a href="constructives.html" class="nav-link hover:text-brand-gold transition pb-1">Конструктиви</a>
-                <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
-                <div class="h-6 w-px bg-white/20 mx-2"></div>
-                <a href="tel:+380671032400" class="flex items-center gap-2 hover:text-brand-gold transition">
-                    <i class="fa-solid fa-phone text-brand-gold"></i>
-                    <span class="font-bold">067 103 24 00</span>
-                </a>
-                <a href="dealers.html" class="border border-brand-gold text-brand-gold px-4 py-1 rounded hover:bg-brand-gold hover:text-white transition">Для дилерів</a>
+            <a href="index.html"><img src="images/logo.png" alt="LOGO" class="h-12 w-auto"></a>
+            <div class="hidden md:flex space-x-6 font-semibold uppercase text-sm">
+                <a href="index.html" class="text-brand-gold">Головна</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="contacts.html">Контакти</a>
             </div>
+            <a href="tel:+380671032400" class="font-bold text-brand-gold">067 103 24 00</a>
         </div>
     </nav>
 
-    <div class="h-[72px]"></div>
-
-    <main class="flex-grow">
-        <header class="hero-bg h-[calc(100vh-72px)] flex items-center justify-center text-center px-4 relative">
-            <div class="absolute inset-0 bg-black/30"></div>
-            <div class="max-w-5xl text-white relative z-10 w-full">
-                <h1 class="font-heading text-3xl md:text-7xl font-bold mb-6 leading-tight">Ваша безпека —<br/> наш пріоритет</h1>
-                <p class="text-base md:text-xl mb-10 text-gray-100 max-w-2xl mx-auto drop-shadow-md">
-                    Виготовляємо надійні металеві двері за індивідуальними розмірами. Власне виробництво у Білій Церкві.
-                </p>
-                <a href="catalog.html" class="bg-brand-gold text-brand-dark px-10 py-4 rounded font-bold hover:bg-yellow-500 transition shadow-lg text-lg">Обрати двері</a>
+    <main class="flex-grow pt-[72px]">
+        <header class="hero-bg h-[60vh] flex items-center justify-center text-center text-white">
+            <div class="max-w-3xl px-4">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Ваша безпека — наш пріоритет</h1>
+                <p class="text-xl mb-8">Надійні вхідні двері від виробника у Білій Церкві.</p>
+                <a href="catalog.html" class="bg-brand-gold text-brand-dark px-8 py-3 rounded-full font-bold text-lg">Каталог дверей</a>
             </div>
         </header>
     </main>
 
-    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 border-t border-white/10 text-center">
-        <div class="container mx-auto px-6">
-            <p class="text-sm">&copy; 2026 БАСТІОН-БЦ. Всі права захищені.</p>
-        </div>
-    </footer>
-
-    <div id="ai-chat-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: 'Open Sans', sans-serif;">
-        <button onclick="toggleChat()" style="background: #0047ab; color: white; border: 2px solid #d4af37; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); font-size: 24px;">💬</button>
+    <div id="ai-chat-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+        <button onclick="toggleChat()" style="background: #0047ab; color: white; border: 2px solid #d4af37; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">💬</button>
         
         <div id="ai-chat-box" style="display: none; position: absolute; bottom: 75px; right: 0; width: 320px; height: 450px; background: white; border: 2px solid #0047ab; border-radius: 15px; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden;">
-            <div style="background: #0047ab; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37;">
-                <span>Консультант БАСТІОН-БЦ</span>
+            <div style="background: #0047ab; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                <span>Консультант Бастіон-БЦ</span>
                 <button onclick="toggleChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
             </div>
             <div id="ai-messages" style="flex: 1; padding: 15px; overflow-y: auto; background: #f4f4f4; display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
                 <div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%;">
-                    Вітаю! Я допоможу вам обрати надійні двері Бастіон-БЦ. Що вас цікавить?
+                    Вітаю! Чим можу допомогти?
                 </div>
             </div>
-            <div style="padding: 10px; background: white; border-top: 1px solid #eee; display: flex; gap: 5px;">
-                <input type="text" id="ai-user-input" placeholder="Запитайте про ціну чи модель..." style="flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; font-size: 13px; outline: none;">
-                <button onclick="askGemini()" style="background: #d4af37; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; align-items: center; justify-content: center;">➔</button>
+            <div style="padding: 10px; display: flex; gap: 5px; border-top: 1px solid #eee;">
+                <input type="text" id="ai-user-input" placeholder="Запитайте щось..." style="flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; outline: none; font-size: 13px;">
+                <button onclick="askGemini()" style="background: #d4af37; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer;">➔</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ВАШ КЛЮЧ
         const API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
 
         function toggleChat() {
@@ -106,54 +79,36 @@
             const text = input.value.trim();
             if (!text) return;
 
-            // Відображаємо повідомлення користувача
             messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%;">${text}</div>`;
             input.value = '';
             messages.scrollTop = messages.scrollHeight;
 
             try {
-                // ВИПРАВЛЕНА АДРЕСА ЗАПИТУ (ПРИЧИНА ПОМИЛКИ 404)
-                const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+                // ВИПРАВЛЕНИЙ URL ДЛЯ ВЕРСІЇ v1
+                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
                 
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: text }] }],
-                        system_instruction: { 
-                            parts: [{ text: "Ти — консультант Bastion-BC. Твоє джерело — сайт https://bastionbc2024-hub.github.io/bastion-bc/ та завантажені файли. Відповідай ввічливо українською." }] 
-                        }
+                        contents: [{ parts: [{ text: text }] }]
                     })
                 });
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error ? errorData.error.message : 'Unknown error');
-                }
+                if (!response.ok) throw new Error('Помилка сервера');
 
                 const data = await response.json();
                 const botResponse = data.candidates[0].content.parts[0].text;
 
                 messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%;">${botResponse}</div>`;
                 messages.scrollTop = messages.scrollHeight;
-
             } catch (e) {
-                console.error("Chat Error:", e);
-                messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Помилка: ${e.message}</div>`;
+                messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center;">Помилка підключення. Спробуйте пізніше.</div>`;
             }
         }
 
         document.getElementById('ai-user-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') askGemini();
-        });
-
-        // Логіка мобільного меню
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (menuBtn && mobileMenu) {
-                menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            }
         });
     </script>
 </body>
