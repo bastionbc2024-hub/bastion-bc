@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>БАСТІОН-БЦ | Вхідні Двері</title>
-    <meta name="description" content="Виробництво надійних вхідних дверей у Білій Церкві. Власне виробництво, гарантія якості.">
-    
-    <link rel="icon" type="image/png" href="images/logo.png">
-    
+    <title>БАСТІОН-БЦ | Головна</title>
+    <meta name="description" content="Виробництво надійних вхідних дверей у Білій Церкві.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script>
         tailwind.config = {
             theme: {
@@ -23,45 +19,115 @@
         }
     </script>
     <style>
-        body { background-image: url('images/bg.png'); background-size: cover; background-attachment: fixed; }
-        .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517646331032-9e8563c523a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
+        body { background-image: url('images/bg.png'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .hero-bg { background-image: linear-gradient(rgba(255, 255, 255, 0.224), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1517646331032-9e8563c523a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
         .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
         @media (min-width: 768px) { .hero-bg { background-attachment: fixed; } }
+        
     </style>
 </head>
 <body class="font-sans text-gray-800 flex flex-col min-h-screen">
 
-    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
+  <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl md:text-2xl font-heading font-bold flex items-center gap-2">
-                <img src="images/logo.png" alt="BASTION-BC" class="h-10 md:h-14 w-auto object-contain">
+            <a href="index.html" class="text-xl md:text-2xl font-heading font-bold tracking-wider flex items-center gap-2">
+                <div class="flex items-center">
+                    <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+                </div>
             </a>
-            <div class="hidden md:flex items-center space-x-6 text-sm font-bold uppercase">
+
+            <div class="hidden md:flex items-center space-x-6 text-sm font-semibold uppercase tracking-wide">
                 <a href="index.html" class="nav-link active hover:text-brand-gold transition pb-1">Головна</a>
-                <a href="about.html" class="nav-link hover:text-brand-gold transition pb-1">Про нас</a>
+                <a href="about.html" class="nav-link  hover:text-brand-gold transition pb-1">Про нас</a>
                 <a href="catalog.html" class="nav-link hover:text-brand-gold transition pb-1">Каталог</a>
                 <a href="constructives.html" class="nav-link hover:text-brand-gold transition pb-1">Конструктиви</a>
                 <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
+
                 <div class="h-6 w-px bg-white/20 mx-2"></div>
+
                 <a href="tel:+380671032400" class="flex items-center gap-2 hover:text-brand-gold transition normal-case">
                     <i class="fa-solid fa-phone text-brand-gold"></i>
                     <span class="font-bold whitespace-nowrap">067 103 24 00</span>
                 </a>
+
+                <a href="cart.html" class="hover:text-brand-gold transition text-lg relative group" title="Кошик">
+                    <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition-transform"></i>
+                    <span id="cart-badge-desktop" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                </a>
+
                 <a href="dealers.html" class="border border-brand-gold text-brand-gold px-4 py-1 rounded hover:bg-brand-gold hover:text-white transition">Для дилерів</a>
             </div>
+
             <div class="flex items-center gap-4 md:hidden">
-                <button id="mobile-menu-btn" class="text-2xl"><i class="fa-solid fa-bars"></i></button>
+                <a href="cart.html" class="text-xl focus:outline-none relative text-brand-gold">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-badge-mobile" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+                </a>
+                
+                <button id="mobile-menu-btn" class="text-2xl focus:outline-none p-2">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 p-4 space-y-4 text-center">
-            <a href="index.html" class="block text-brand-gold font-bold">Головна</a>
-            <a href="about.html" class="block text-white">Про нас</a>
-            <a href="catalog.html" class="block text-white">Каталог</a>
-            <a href="contacts.html" class="block text-white">Контакти</a>
-            <a href="tel:+380671032400" class="block text-brand-gold font-bold">067 103 24 00</a>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 absolute w-full top-full left-0 shadow-2xl">
+            <a href="index.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Головна</a>
+            <a href="about.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Про нас</a>
+            <a href="catalog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Каталог</a>
+            <a href="constructives.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Конструктиви</a>
+            <a href="contacts.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Контакти</a>
+            
+            <a href="tel:+380671032400" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg font-bold text-brand-gold">
+                <i class="fa-solid fa-phone mr-2"></i> 067 103 24 00
+            </a>
+
+            <a href="dealers.html" class="block py-4 px-6 text-brand-gold font-bold hover:bg-white/10 text-lg">Для дилерів</a>
         </div>
     </nav>
 
+<script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Логіка відкриття мобільного меню
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if(menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // 2. Логіка підрахунку товарів у кошику
+        updateCartBadge();
+    });
+
+    function updateCartBadge() {
+        // Отримуємо кошик з пам'яті
+        const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        
+        // Рахуємо загальну кількість (враховуючи кількість одиниць кожного товару)
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
+        // Знаходимо елементи бейджів (десктоп і мобайл)
+        const badges = [
+            document.getElementById('cart-badge-desktop'),
+            document.getElementById('cart-badge-mobile')
+        ];
+
+        badges.forEach(badge => {
+            if (badge) {
+                if (totalItems > 0) {
+                    badge.innerText = totalItems;
+                    badge.classList.remove('hidden'); // Показати, якщо є товари
+                } else {
+                    badge.classList.add('hidden'); // Сховати, якщо 0
+                }
+            }
+        });
+    }
+</script>
+    
     <div class="h-[72px]"></div>
 
     <main class="flex-grow">
@@ -136,16 +202,46 @@
         </section>
     </main>
 
-    <footer class="bg-brand-dark text-gray-400 py-12 text-center">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <img src="images/logo.png" alt="Logo" class="h-12">
-            <p>&copy; 2026 БАСТІОН-БЦ. Біла Церква.</p>
-            <div class="flex gap-4 text-white text-xl">
-                <a href="https://www.facebook.com/dveribastionbc" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/dveri_bastionbc/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 md:py-12 border-t border-white/10 relative z-10">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4"></a>
+                <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Меню</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="about.html" class="hover:text-brand-gold">Про нас</a></li>
+                    <li><a href="catalog.html" class="hover:text-brand-gold">Каталог</a></li>
+                    <li><a href="dealers.html" class="hover:text-brand-gold">Співпраця</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакти</h4>
+                <p class="text-sm">с. Фурси, вул. Промислова, 22</p>
+                <p class="text-sm">068 968 32 32</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Соцмережі</h4>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/dveribastionbc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/dveri_bastionbc/" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@bastionbc?is_from_webapp=1&sender_device=pc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://www.youtube.com/@%D0%94%D0%92%D0%95%D0%A0%D0%86-%D0%91%D0%90%D0%A1%D0%A2%D0%86%D0%9E%D0%9D-%D0%91%D0%A6" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+                </div>
             </div>
         </div>
+        <div class="container mx-auto px-6 text-center text-sm border-t border-white/10 pt-6 mt-8 text-gray-400">&copy; 2026 БАСТІОН-БЦ.</div>
     </footer>
+
 
     <div id="ai-chat-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
         <button id="ai-toggle-btn" style="background: #0047ab; color: white; border: 2px solid #d4af37; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-size: 28px; display: flex; align-items: center; justify-content: center;">💬</button>
@@ -227,3 +323,4 @@
     </script>
 </body>
 </html>
+
