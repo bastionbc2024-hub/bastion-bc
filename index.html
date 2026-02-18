@@ -339,171 +339,152 @@
     </footer>
 
     <div id="ai-chat-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: 'Open Sans', sans-serif;">
-        <button onclick="toggleChat()" style="background: #0047ab; color: white; border: 2px solid #d4af37; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); font-size: 24px; display: flex; justify-content: center; align-items: center;">
+        <button id="ai-toggle-btn" style="background: #0047ab; color: white; border: 2px solid #d4af37; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); font-size: 24px; display: flex; justify-content: center; align-items: center;">
             <i class="fa-solid fa-comment-dots"></i>
         </button>
         
         <div id="ai-chat-box" style="display: none; position: absolute; bottom: 75px; right: 0; width: 320px; height: 450px; background: white; border: 2px solid #0047ab; border-radius: 15px; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden;">
             <div style="background: #0047ab; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37;">
                 <span>Консультант Бастіон-БЦ</span>
-                <button onclick="toggleChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
+                <button id="ai-close-btn" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
             </div>
             <div id="ai-messages" style="flex: 1; padding: 15px; overflow-y: auto; background: #f4f4f4; display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
-                </div>
+                <div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 90%;">Вітаю! Я допоможу обрати двері. Що вас цікавить?</div>
+            </div>
             <div style="padding: 10px; background: white; border-top: 1px solid #eee; display: flex; gap: 5px;">
                 <input type="text" id="ai-user-input" placeholder="Запитайте щось..." style="flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; font-size: 13px; outline: none;">
-                <button onclick="askGemini()" style="background: #d4af37; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; justify-content: center; align-items: center;">➤</button>
+                <button id="ai-send-btn" style="background: #d4af37; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; display: flex; justify-content: center; align-items: center;">➤</button>
             </div>
         </div>
     </div>
-    <script>
-    // --- 1. ІНТЕРФЕЙС ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        }
-        updateCartBadge();
-    });
 
-    function updateCartBadge() {
-        const cart = JSON.parse(localStorage.getItem('myCart')) || [];
-        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-        const badges = [document.getElementById('cart-badge-desktop'), document.getElementById('cart-badge-mobile')];
-        badges.forEach(badge => {
-            if (badge) {
-                if (totalItems > 0) {
-                    badge.innerText = totalItems;
-                    badge.classList.remove('hidden');
-                } else {
-                    badge.classList.add('hidden');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Мобільне меню і Кошик
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+
+            function updateCartBadge() {
+                const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                const badges = [document.getElementById('cart-badge-desktop'), document.getElementById('cart-badge-mobile')];
+                badges.forEach(badge => {
+                    if (badge) {
+                        badge.innerText = totalItems;
+                        badge.classList.toggle('hidden', totalItems === 0);
+                    }
+                });
+            }
+            updateCartBadge();
+
+            // 2. Telegram форма
+            const form = document.getElementById('tg-consult-form');
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('consult-submit-btn');
+                    const name = document.getElementById('consult-name').value;
+                    const phone = document.getElementById('consult-phone').value;
+                    
+                    btn.innerText = 'Відправка...'; btn.disabled = true;
+                    try {
+                        const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
+                        const chatId = '1266321063';
+                        const msg = `🔔 ЗАЯВКА\n👤 ${name}\n📞 ${phone}`;
+                        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                            method: 'POST', 
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({chat_id: chatId, text: msg})
+                        });
+                        alert('Дякуємо! Ми зателефонуємо.');
+                        this.reset();
+                    } catch (err) { alert('Помилка відправки.'); }
+                    finally { btn.innerText = 'Замовити дзвінок'; btn.disabled = false; }
+                });
+            }
+
+            // 3. AI ЧАТ БОТ
+            const chatBox = document.getElementById('ai-chat-box');
+            const toggleBtn = document.getElementById('ai-toggle-btn');
+            const closeBtn = document.getElementById('ai-close-btn');
+            const sendBtn = document.getElementById('ai-send-btn');
+            const userInput = document.getElementById('ai-user-input');
+            const messages = document.getElementById('ai-messages');
+            
+            // Відкриття/Закриття
+            if (toggleBtn) toggleBtn.addEventListener('click', () => chatBox.style.display = (chatBox.style.display === 'none' ? 'flex' : 'none'));
+            if (closeBtn) closeBtn.addEventListener('click', () => chatBox.style.display = 'none');
+
+            // API Ключ
+            const API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
+            
+            // Прайс і правила
+            const SYSTEM_PROMPT = `
+            ТИ - МЕНЕДЖЕР "БАСТІОН-БЦ". МИ ПРОДАЄМО ВХІДНІ ДВЕРІ ТА ФУРНІТУРУ.
+            
+            ТВІЙ ПРАЙС:
+            - Замок 510 (комплект): 402 грн
+            - Кале 2000: 482 грн
+            - Корпус 252: 770 грн
+            - Смарт замок: 10 189 грн
+            - Замір: Безкоштовно (Біла Церква)
+            
+            ПРАВИЛА:
+            1. НЕ говори про військову амуніцію.
+            2. Ціни тільки з прайсу вище. Якщо немає - "Уточніть у менеджера".
+            3. Відповідай коротко (1-2 речення).
+            `;
+
+            let chatHistory = [
+                { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
+                { role: "model", parts: [{ text: "Зрозумів. Я менеджер дверей. Працюю по прайсу." }] }
+            ];
+
+            // Функція відправки
+            async function sendMessage() {
+                const text = userInput.value.trim();
+                if (!text) return;
+
+                // Додаємо повідомлення юзера
+                messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 90%; margin-bottom: 5px;">${text}</div>`;
+                userInput.value = '';
+                messages.scrollTop = messages.scrollHeight;
+
+                chatHistory.push({ role: "user", parts: [{ text: text }] });
+
+                try {
+                    // Запит до Gemini
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: chatHistory })
+                    });
+
+                    if (!response.ok) throw new Error('Помилка сервера');
+
+                    const data = await response.json();
+                    const botText = data.candidates[0].content.parts[0].text;
+                    
+                    chatHistory.push({ role: "model", parts: [{ text: botText }] });
+
+                    messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 90%; margin-bottom: 5px;">${botText}</div>`;
+                    messages.scrollTop = messages.scrollHeight;
+
+                } catch (error) {
+                    messages.innerHTML += `<div style="color: red; font-size: 12px; text-align: center;">Помилка зв'язку. Спробуйте пізніше.</div>`;
+                    console.error(error);
                 }
             }
+
+            if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+            if (userInput) userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
         });
-    }
-
-    // --- 2. TELEGRAM ---
-    document.getElementById('tg-consult-form')?.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('consult-submit-btn');
-        const name = document.getElementById('consult-name').value;
-        const phone = document.getElementById('consult-phone').value;
-
-        // Ваші дані
-        const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
-        const chatId = '1266321063';
-        const message = `🔔 ЗАПИТ НА КОНСУЛЬТАЦІЮ\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}`;
-        
-        btn.disabled = true;
-        btn.innerText = 'Відправка...';
-
-        try {
-            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
-            });
-            alert('Дякуємо! Менеджер зателефонує вам.');
-            this.reset();
-        } catch (error) { 
-            alert('Помилка відправки.'); 
-        } finally { 
-            btn.disabled = false; 
-            btn.innerText = 'Замовити дзвінок';
-        }
-    });
-
-    // --- 3. AI ЧАТ ---
-    const GEMINI_API_KEY = 'AIzaSyAZrGzfpSaHQAzG-1GVqj1LR8aytvJ1dc0';
-    
-    // ТУТ ВАШІ ЦІНИ ТА ІНСТРУКЦІЇ
-    const MY_PRICES = `
-    - Замок 510 (корпус + серцевина): 402 грн
-    - Кале 2000 (+серцевина Стандарт): 482 грн
-    - Корпус 252 + серцевина стандарт: 770 грн
-    - Смарт замок ПЕС МОПС (повний комплект): 10 189 грн
-    - Сантос 1739 + р.планка Протипожежна чорна: 552 грн
-    - Послуга заміру: Безкоштовно по м. Біла Церква
-    - Ціни на двері уточнювати у менеджера
-    `;
-
-    // ІСТОРІЯ ЧАТУ З ПРАВИЛАМИ
-    let chatHistory = [
-        {
-            role: "user",
-            parts: [{ text: `
-                ТИ — МЕНЕДЖЕР КОМПАНІЇ "БАСТІОН-БЦ".
-                МИ ВИРОБЛЯЄМО ВХІДНІ МЕТАЛЕВІ ДВЕРІ, МІЖКІМНАТНІ ДВЕРІ І ПРОДАЄМО ФУРНІТУРУ.
-                
-                ТВІЙ ПРАЙС-ЛИСТ (ВИКОРИСТОВУЙ ЦІ ЦІНИ):
-                ${MY_PRICES}
-                
-                ПРАВИЛА:
-                1. Якщо товару немає в списку вище, кажи: "Точну ціну розрахує менеджер: 067 103 24 00".
-                2. НЕ говори про військову амуніцію.
-                3. Відповідай ДУЖЕ коротко і швидко (1-2 речення).
-                4. Не вітайся кожного разу.
-                5. Не говори про політику.
-            ` }]
-        },
-        { role: "model", parts: [{ text: "Зрозумів. Використовую ваш прайс. Відповідаю миттєво." }] }
-    ];
-
-    function toggleChat() {
-        const box = document.getElementById('ai-chat-box');
-        if (box) box.style.display = box.style.display === 'none' ? 'flex' : 'none';
-    }
-
-    async function askGemini() {
-        const input = document.getElementById('ai-user-input');
-        const messages = document.getElementById('ai-messages');
-        const text = input.value.trim();
-        
-        if (!text) return;
-
-        // Показуємо питання користувача
-        messages.innerHTML += `<div style="background: #d4af37; color: white; padding: 8px 12px; border-radius: 10px 10px 0 10px; align-self: flex-end; max-width: 85%; font-size: 13px;">${text}</div>`;
-        input.value = '';
-        messages.scrollTop = messages.scrollHeight;
-
-        // Додаємо в історію
-        chatHistory.push({ role: "user", parts: [{ text: text }] });
-
-        try {
-            // Використовуємо v1beta + gemini-1.5-flash (це та комбінація, що працювала)
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-            
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: chatHistory })
-            });
-
-            if (!response.ok) {
-                throw new Error('Помилка сервера Google');
-            }
-
-            const data = await response.json();
-            const botResponse = data.candidates[0].content.parts[0].text;
-            
-            // Зберігаємо відповідь бота
-            chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
-
-            // Показуємо відповідь
-            messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 8px 12px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%; font-size: 13px;">${botResponse}</div>`;
-            messages.scrollTop = messages.scrollHeight;
-
-        } catch (e) {
-            console.error(e);
-            messages.innerHTML += `<div style="color: red; font-size: 11px; text-align: center; margin-top: 5px;">Сервіс тимчасово недоступний.</div>`;
-        }
-    }
-
-    // Enter для відправки
-    document.getElementById('ai-user-input')?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') askGemini();
-    });
-</script>
+    </script>
 </body>
 </html>
