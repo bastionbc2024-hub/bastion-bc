@@ -39,6 +39,7 @@
                 <a href="index.html" class="nav-link active hover:text-brand-gold transition pb-1">Головна</a>
                 <a href="about.html" class="nav-link hover:text-brand-gold transition pb-1">Про нас</a>
                 <a href="catalog.html" class="nav-link hover:text-brand-gold transition pb-1">Каталог</a>
+                <a href="constructives.html" class="nav-link hover:text-brand-gold transition pb-1">Конструктиви</a>
                 <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
                 <div class="h-6 w-px bg-white/20 mx-2"></div>
                 <a href="tel:+380671032400" class="flex items-center gap-2 hover:text-brand-gold transition normal-case">
@@ -46,25 +47,28 @@
                     <span class="font-bold whitespace-nowrap">067 103 24 00</span>
                 </a>
                 <a href="cart.html" class="hover:text-brand-gold transition text-lg relative group" title="Кошик">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition-transform"></i>
                     <span id="cart-badge-desktop" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
                 </a>
                 <a href="dealers.html" class="border border-brand-gold text-brand-gold px-4 py-1 rounded hover:bg-brand-gold hover:text-white transition">Для дилерів</a>
             </div>
 
             <div class="flex items-center gap-4 md:hidden">
-                <a href="cart.html" class="text-xl relative text-brand-gold">
+                <a href="cart.html" class="text-xl focus:outline-none relative text-brand-gold">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cart-badge-mobile" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
                 </a>
-                <button id="mobile-menu-btn" class="text-2xl p-2"><i class="fa-solid fa-bars"></i></button>
+                <button id="mobile-menu-btn" class="text-2xl focus:outline-none p-2"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
+
         <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 absolute w-full top-full left-0 shadow-2xl">
-            <a href="index.html" class="block py-4 px-6 border-b border-white/10">Головна</a>
-            <a href="about.html" class="block py-4 px-6 border-b border-white/10">Про нас</a>
-            <a href="catalog.html" class="block py-4 px-6 border-b border-white/10">Каталог</a>
-            <a href="tel:+380671032400" class="block py-4 px-6 text-brand-gold">067 103 24 00</a>
+            <a href="index.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Головна</a>
+            <a href="about.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Про нас</a>
+            <a href="catalog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Каталог</a>
+            <a href="constructives.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Конструктиви</a>
+            <a href="contacts.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Контакти</a>
+            <a href="tel:+380671032400" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg font-bold text-brand-gold">067 103 24 00</a>
         </div>
     </nav>
 
@@ -75,49 +79,116 @@
             <div class="absolute inset-0 bg-black/30"></div>
             <div class="max-w-5xl text-white relative z-10 w-full">
                 <span class="text-brand-gold font-bold tracking-[0.2em] uppercase text-xs md:text-base mb-4 block">Виробництво вхідних дверей</span>
-                <h1 class="font-heading text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6">Ваша безпека —<br/> наш пріоритет</h1>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="catalog.html" class="bg-brand-gold text-brand-dark px-10 py-4 rounded font-bold hover:bg-yellow-500 transition shadow-lg">Обрати двері</a>
-                    <a href="#consultation-form" class="border-2 border-white text-white px-10 py-4 rounded font-bold hover:bg-white hover:text-brand-dark transition">Замовити замір</a>
+                <h1 class="font-heading text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">Ваша безпека —<br/> наш пріоритет</h1>
+                <p class="text-base md:text-xl mb-8 md:mb-10 text-gray-100 max-w-2xl mx-auto px-4 drop-shadow-md">Виготовляємо надійні металеві двері за індивідуальними розмірами. Власне виробництво у Білій Церкві.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+                    <a href="catalog.html" class="w-full sm:w-auto bg-brand-gold text-brand-dark px-8 md:px-10 py-4 rounded font-bold hover:bg-yellow-500 transition shadow-lg text-lg">Обрати двері</a>
+                    <a href="#consultation-form" class="w-full sm:w-auto border-2 border-white text-white px-8 md:px-10 py-4 rounded font-bold hover:bg-white hover:text-brand-dark transition text-lg">Замовити замір</a>
                 </div>
             </div>
         </header>
 
+        <section class="py-12 md:py-20 bg-white/95 backdrop-blur-sm">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-10 md:mb-16">
+                    <h2 class="text-2xl md:text-4xl font-heading font-bold text-brand-dark mb-4">Чому обирають БАСТІОН-БЦ?</h2>
+                    <div class="w-16 md:w-24 h-1 bg-brand-gold mx-auto"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="p-6 border border-gray-100 rounded-lg shadow-sm bg-white">
+                        <i class="fa-solid fa-shield-halved text-4xl text-brand-dark mb-4"></i>
+                        <h3 class="text-lg font-bold mb-2">Зламостійкість</h3>
+                        <p class="text-gray-600 text-sm">Метал 1.5-2.0 мм, антизрізи та надійні замки.</p>
+                    </div>
+                    <div class="p-6 border border-gray-100 rounded-lg shadow-sm bg-white">
+                        <i class="fa-solid fa-temperature-arrow-up text-4xl text-brand-dark mb-4"></i>
+                        <h3 class="text-lg font-bold mb-2">Теплоізоляція</h3>
+                        <p class="text-gray-600 text-sm">Утеплення мінеральною ватою та ущільнення.</p>
+                    </div>
+                    <div class="p-6 border border-gray-100 rounded-lg shadow-sm bg-white">
+                        <i class="fa-solid fa-ruler-combined text-4xl text-brand-dark mb-4"></i>
+                        <h3 class="text-lg font-bold mb-2">Будь-який розмір</h3>
+                        <p class="text-gray-600 text-sm">Виготовляємо нестандартні конструкції.</p>
+                    </div>
+                    <div class="p-6 border border-gray-100 rounded-lg shadow-sm bg-white">
+                        <i class="fa-solid fa-palette text-4xl text-brand-dark mb-4"></i>
+                        <h3 class="text-lg font-bold mb-2">Сучасний дизайн</h3>
+                        <p class="text-gray-600 text-sm">Понад 200 видів фрезування та кольорів.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="py-12 md:py-20 bg-white/80 backdrop-blur-md">
              <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-8">
-                    <h2 class="text-2xl md:text-4xl font-heading font-bold text-brand-dark">Хіти продажу</h2>
-                    <a href="catalog.html" class="text-brand-dark font-bold border-b-2 border-brand-gold pb-1">Весь каталог</a>
+                <div class="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12">
+                    <div class="text-center md:text-left w-full md:w-auto">
+                        <h2 class="text-2xl md:text-4xl font-heading font-bold text-brand-dark mb-2">Хіти продажу</h2>
+                        <p class="text-gray-600 font-semibold">Найпопулярніші моделі цього місяця</p>
+                    </div>
+                    <a href="catalog.html" class="hidden md:block text-brand-dark font-bold hover:text-brand-gold transition border-b-2 border-brand-gold pb-1">Весь каталог <i class="fa-solid fa-arrow-right ml-2"></i></a>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-xl shadow-md p-6">
-                        <img src="images/lampre .jpg" alt="Термікс" class="h-64 mx-auto object-contain mb-4">
-                        <h3 class="text-xl font-bold">Термікс</h3>
-                        <p class="text-gray-500 mb-4">Лампре-Дуб золотий</p>
-                        <button onclick="window.location.href='catalog.html'" class="w-full border border-brand-dark py-2 rounded font-semibold hover:bg-brand-dark hover:text-white">Детальніше</button>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group border border-gray-100 p-6">
+                        <img src="images/lampre .jpg" alt="Термікс" class="h-64 mx-auto object-contain mb-4 transition duration-300 group-hover:scale-105">
+                        <h3 class="text-xl font-bold mb-2">Термікс</h3>
+                        <p class="text-gray-500 text-sm mb-4">Лампре-Дуб золотий/LB 15</p>
+                        <button onclick="window.location.href='catalog.html'" class="w-full border border-brand-dark text-brand-dark py-2 rounded font-semibold hover:bg-brand-dark hover:text-white transition">Детальніше</button>
                     </div>
-                    <div class="bg-white rounded-xl shadow-md p-6">
-                        <img src="images/monolit.png" alt="Моноліт" class="h-64 mx-auto object-contain mb-4">
-                        <h3 class="text-xl font-bold">Моноліт</h3>
-                        <p class="text-gray-500 mb-4">Лампре Антрацит</p>
-                        <button onclick="window.location.href='catalog.html'" class="w-full border border-brand-dark py-2 rounded font-semibold hover:bg-brand-dark hover:text-white">Детальніше</button>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group border border-gray-100 p-6">
+                        <img src="images/monolit.png" alt="Моноліт" class="h-64 mx-auto object-contain mb-4 transition duration-300 group-hover:scale-105">
+                        <h3 class="text-xl font-bold mb-2">Моноліт</h3>
+                        <p class="text-gray-500 text-sm mb-4">Лампре Антрацит</p>
+                        <button onclick="window.location.href='catalog.html'" class="w-full border border-brand-dark text-brand-dark py-2 rounded font-semibold hover:bg-brand-dark hover:text-white transition">Детальніше</button>
                     </div>
-                    <div class="bg-white rounded-xl shadow-md p-6">
-                        <img src="images/praymmax.png" alt="Прайм Макс" class="h-64 mx-auto object-contain mb-4">
-                        <h3 class="text-xl font-bold">Прайм Макс</h3>
-                        <p class="text-gray-500 mb-4">РАЛ 7016</p>
-                        <button onclick="window.location.href='catalog.html'" class="w-full border border-brand-dark py-2 rounded font-semibold hover:bg-brand-dark hover:text-white">Детальніше</button>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group border border-gray-100 p-6">
+                        <img src="images/praymmax.png" alt="Прайм Макс" class="h-64 mx-auto object-contain mb-4 transition duration-300 group-hover:scale-105">
+                        <h3 class="text-xl font-bold mb-2">Прайм Макс</h3>
+                        <p class="text-gray-500 text-sm mb-4">РАЛ 7016 30ОфД</p>
+                        <button onclick="window.location.href='catalog.html'" class="w-full border border-brand-dark text-brand-dark py-2 rounded font-semibold hover:bg-brand-dark hover:text-white transition">Детальніше</button>
                     </div>
                 </div>
              </div>
         </section>
 
-        <section id="consultation-form" class="py-12 md:py-20 bg-brand-gold relative">
+        <section class="py-12 md:py-20 bg-white/95 backdrop-blur-sm">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-2xl md:text-4xl font-heading font-bold text-brand-dark mb-12">Як ми працюємо?</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="w-16 h-16 md:w-24 md:h-24 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-brand-dark text-2xl md:text-3xl text-brand-dark">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">1. Заявка</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="w-16 h-16 md:w-24 md:h-24 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-brand-dark text-2xl md:text-3xl text-brand-dark">
+                            <i class="fa-solid fa-ruler-horizontal"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">2. Замір</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="w-16 h-16 md:w-24 md:h-24 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-brand-dark text-2xl md:text-3xl text-brand-dark">
+                            <i class="fa-solid fa-hammer"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">3. Виробництво</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="w-16 h-16 md:w-24 md:h-24 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-brand-dark text-2xl md:text-3xl text-brand-dark">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">4. Монтаж</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="consultation-form" class="py-12 md:py-20 bg-brand-gold relative overflow-hidden">
             <div class="container mx-auto px-6 relative z-10">
-                <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-center">
+                <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-12 max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-center border-4 border-white/20">
                     <div class="md:w-1/2">
-                        <h2 class="text-2xl font-heading font-bold mb-4 text-brand-dark">Потрібна консультація?</h2>
-                        <p class="text-gray-600 mb-4">Запишіться на безкоштовний замір. Майстер приїде з каталогами та зразками.</p>
+                        <h2 class="text-2xl md:text-3xl font-heading font-bold mb-4 text-brand-dark">Потрібна консультація?</h2>
+                        <p class="text-gray-600 mb-6">Запишіться на безкоштовний замір. Майстер приїде з каталогами.</p>
                     </div>
                     <div class="md:w-1/2 w-full">
                         <form id="tg-consult-form" class="space-y-4">
@@ -131,8 +202,26 @@
         </section>
     </main>
 
-    <footer class="bg-brand-dark text-white py-12">
-        <div class="container mx-auto px-6 text-center">&copy; 2026 БАСТІОН-БЦ.</div>
+    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 md:py-12 border-t border-white/10 text-center">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 mx-auto object-contain">
+            <div>
+                <h4 class="text-white font-bold mb-4">Меню</h4>
+                <ul class="text-sm space-y-2">
+                    <li><a href="about.html" class="hover:text-brand-gold">Про нас</a></li>
+                    <li><a href="catalog.html" class="hover:text-brand-gold">Каталог</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакти</h4>
+                <p class="text-sm">068 968 32 32</p>
+            </div>
+            <div class="flex justify-center space-x-4">
+                <a href="https://instagram.com/dveri_bastionbc/" target="_blank" class="text-white hover:text-brand-gold"><i class="fa-brands fa-instagram text-2xl"></i></a>
+                <a href="https://facebook.com/dveribastionbc" target="_blank" class="text-white hover:text-brand-gold"><i class="fa-brands fa-facebook-f text-2xl"></i></a>
+            </div>
+        </div>
+        <div class="border-t border-white/10 mt-8 pt-6 text-sm text-gray-400">&copy; 2026 БАСТІОН-БЦ.</div>
     </footer>
 
     <div id="ai-chat-wrapper" class="fixed bottom-6 right-6 z-[100]">
@@ -140,13 +229,13 @@
             <i class="fa-solid fa-robot text-2xl"></i>
         </button>
 
-        <div id="ai-chat-box" style="display: none;" class="absolute bottom-16 right-0 w-[320px] h-[450px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 text-sm">
+        <div id="ai-chat-box" style="display: none;" class="absolute bottom-16 right-0 w-[320px] h-[450px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200">
             <div class="bg-brand-dark text-white p-4 font-bold flex justify-between items-center">
                 <span>AI Асистент Bastion-BC</span>
                 <button onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div id="ai-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-3 bg-gray-50">
-                <div style="background: #eef2f7; padding: 10px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%;">Вітаю! Чим можу допомогти у виборі дверей?</div>
+            <div id="ai-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-3 bg-gray-50 text-sm">
+                <div style="background: #eef2f7; padding: 10px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%;">Вітаю! Я ШІ асистент. Чим можу допомогти у виборі дверей?</div>
             </div>
             <div class="p-3 border-t bg-white flex gap-2">
                 <input type="text" id="ai-user-input" placeholder="Запитайте щось..." class="flex-grow border rounded-lg px-3 py-2 outline-none focus:border-brand-gold">
@@ -156,29 +245,23 @@
     </div>
 
     <script>
-        // 1. КОНСТАНТИ
-        const TG_TOKEN = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
-        const TG_CHAT_ID = '1266321063';
         const MAKE_URL = 'https://hook.eu1.make.com/39mve26bksg7w6bveknjyu7eq19yg4xw';
 
-        // 2. МЕНЮ ТА КОШИК
+        // МЕНЮ ТА КОШИК
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             if (menuBtn) menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
-            updateCartBadge();
-        });
-
-        function updateCartBadge() {
+            
             const cart = JSON.parse(localStorage.getItem('myCart')) || [];
             const count = cart.length;
             const b1 = document.getElementById('cart-badge-desktop');
             const b2 = document.getElementById('cart-badge-mobile');
             if(b1) { b1.innerText = count; count > 0 ? b1.classList.remove('hidden') : b1.classList.add('hidden'); }
             if(b2) { b2.innerText = count; count > 0 ? b2.classList.remove('hidden') : b2.classList.add('hidden'); }
-        }
+        });
 
-        // 3. РОЗУМНИЙ AI АГЕНТ (БЕЗ JSON ТА СМІТТЯ)
+        // AI АСИСТЕНТ (ОНОВЛЕНО)
         function toggleChat() {
             const box = document.getElementById('ai-chat-box');
             box.style.display = box.style.display === 'none' ? 'flex' : 'none';
@@ -205,42 +288,36 @@
 
                 let cleanResponse = "";
                 if (raw === "Accepted") {
-                    cleanResponse = "Зачекайте секунду, я готую відповідь...";
+                    cleanResponse = "Зачекайте секунду, я готую детальну відповідь...";
                 } else {
                     try {
                         const json = JSON.parse(raw);
                         cleanResponse = json.response || json.text || raw;
-                    } catch (e) {
-                        cleanResponse = raw; // Якщо не JSON, то це чистий текст
-                    }
+                    } catch (e) { cleanResponse = raw; }
                 }
 
                 messages.innerHTML += `<div style="background: #0047ab; color: white; padding: 10px; border-radius: 10px 10px 10px 0; align-self: flex-start; max-width: 85%;">${cleanResponse}</div>`;
-            } catch (e) {
-                document.getElementById(loaderId).innerText = "Помилка. Спробуйте пізніше.";
-            }
+            } catch (e) { document.getElementById(loaderId).innerText = "Помилка зв'язку."; }
             messages.scrollTop = messages.scrollHeight;
         }
 
-        // 4. ТЕЛЕГРАМ ФОРМА (ВІДНОВЛЕНО)
+        // ТЕЛЕГРАМ-ФОРМА
         document.getElementById('tg-consult-form').onsubmit = async function(e) {
             e.preventDefault();
-            const b = document.getElementById('consult-submit-btn');
+            const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
+            const chatId = '1266321063';
             const n = document.getElementById('consult-name').value;
             const p = document.getElementById('consult-phone').value;
-            b.innerText = 'Відправка...';
-            b.disabled = true;
-
+            
             try {
-                await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: TG_CHAT_ID, text: `🔔 НОВА ЗАЯВКА\nІм'я: ${n}\nТел: ${p}`, parse_mode: 'HTML' })
+                    body: JSON.stringify({ chat_id: chatId, text: `🔔 НОВА ЗАЯВКА\nІм'я: ${n}\nТел: ${p}`, parse_mode: 'HTML' })
                 });
                 alert('Дякуємо! Менеджер зателефонує вам.');
                 this.reset();
-            } catch (err) { alert('Помилка відправки'); }
-            finally { b.innerText = 'Замовити дзвінок'; b.disabled = false; }
+            } catch (err) { alert('Помилка відправки.'); }
         };
 
         document.getElementById('ai-user-input').onkeypress = (e) => { if(e.key === 'Enter') askAIAgent(); };
