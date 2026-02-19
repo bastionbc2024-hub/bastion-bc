@@ -252,6 +252,17 @@
     </div>
 
     <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Мобільне меню
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -314,5 +325,6 @@
     </script>
 </body>
 </html>
+
 
 
