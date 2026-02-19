@@ -86,30 +86,21 @@
     </nav>
 
 <script>
-    
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. Логіка відкриття мобільного меню
+        // Мобільне меню
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        if(menuBtn && mobileMenu) {
+        if (menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
         }
 
-        // 2. Логіка підрахунку товарів у кошику
-        updateCartBadge();
-    });
-
-    function updateCartBadge() {
-        // Отримуємо кошик з пам'яті
+        // Логіка кошика
         const cart = JSON.parse(localStorage.getItem('myCart')) || [];
-        
-        // Рахуємо загальну кількість (враховуючи кількість одиниць кожного товару)
         const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-
-        // Знаходимо елементи бейджів (десктоп і мобайл)
+        
         const badges = [
             document.getElementById('cart-badge-desktop'),
             document.getElementById('cart-badge-mobile')
@@ -119,13 +110,13 @@
             if (badge) {
                 if (totalItems > 0) {
                     badge.innerText = totalItems;
-                    badge.classList.remove('hidden'); // Показати, якщо є товари
+                    badge.classList.remove('hidden');
                 } else {
-                    badge.classList.add('hidden'); // Сховати, якщо 0
+                    badge.classList.add('hidden');
                 }
             }
         });
-    }
+    });
 </script>
     
     <div class="h-[72px]"></div>
@@ -323,4 +314,5 @@
     </script>
 </body>
 </html>
+
 
