@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для дилерів | БАСТІОН-БЦ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { dark: '#0047ab', gold: '#d4af37', gray: '#333333', light: '#f4f4f4' } }, fontFamily: { sans: ['"Open Sans"', 'sans-serif'], heading: ['"Montserrat"', 'sans-serif'] } } } }
+    </script>
+    <style>
+        <style>
+        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
+        .hero-gradient { 
+            background: linear-gradient(rgba(0, 71, 171, 0.9), rgba(0, 71, 171, 0.8)), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+        .feature-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        
+        /* ВИПРАВЛЕНО: Стандартний CSS замість @apply для сумісності з Visual Studio */
+        .btn-universal {
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem; 
+            padding: 1.25rem 3rem;
+            border-radius: 9999px; 
+            border-width: 2px;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-universal:hover { 
+            background-color: #0047ab !important; 
+            color: #d4af37 !important; 
+            border-color: #0047ab !important; 
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стиль для кнопки рекламації як на скріншоті */
+        .btn-claim-red {
+            background-color: #e52d27;
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem; 
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-claim-red:hover {
+            background-color: #c4211d;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+        body { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-brand-dark/95 backdrop-blur-sm text-white shadow-lg">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="index.html" class="text-xl md:text-2xl font-heading font-bold tracking-wider flex items-center gap-2">
+            <div class="flex items-center">
+                <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+            </div>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-6 text-sm font-semibold uppercase tracking-wide">
+            <a href="index.html" class="nav-link hover:text-brand-gold transition pb-1">Головна</a>
+            <a href="about.html" class="nav-link hover:text-brand-gold transition pb-1">Про нас</a>
+            <a href="catalog.html" class="nav-link hover:text-brand-gold transition pb-1">Каталог</a>
+            <a href="constructives.html" class="nav-link hover:text-brand-gold transition pb-1">Конструктиви</a>
+            <a href="contacts.html" class="nav-link hover:text-brand-gold transition pb-1">Контакти</a>
+            <a href="blog.html" class="nav-link hover:text-brand-gold transition pb-1">Блог</a>
+
+            <div class="h-6 w-px bg-white/20 mx-2"></div>
+
+            <a href="tel:+380671032400" class="flex items-center gap-2 hover:text-brand-gold transition normal-case">
+                <i class="fa-solid fa-phone text-brand-gold"></i>
+                <span class="font-bold whitespace-nowrap">067 103 24 00</span>
+            </a>
+
+            <a href="cart.html" class="hover:text-brand-gold transition text-lg relative group" title="Кошик">
+                <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition-transform"></i>
+                <span id="cart-badge-desktop" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+            </a>
+
+           <a href="dealers.html" class="bg-brand-gold text-white border border-brand-gold px-4 py-1 rounded transition">
+  Для дилерів
+</a>
+
+
+        
+
+        <div class="flex items-center gap-4 md:hidden">
+            <a href="cart.html" class="text-xl focus:outline-none relative text-brand-gold">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-badge-mobile" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full hidden">0</span>
+            </a>
+            
+            <button id="mobile-menu-btn" class="text-2xl focus:outline-none p-2">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-white/10 absolute w-full top-full left-0 shadow-2xl">
+        <a href="index.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Головна</a>
+        <a href="about.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Про нас</a>
+        <a href="catalog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Каталог</a>
+        <a href="constructives.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Конструктиви</a>
+        <a href="contacts.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Контакти</a>
+        <a href="blog.html" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg">Блог</a>
+        
+        <a href="tel:+380671032400" class="block py-4 px-6 hover:bg-white/10 border-b border-white/10 text-lg font-bold text-brand-gold">
+            <i class="fa-solid fa-phone mr-2"></i> 067 103 24 00
+        </a>
+
+        <a href="dealers.html" class="block py-4 px-6 text-brand-gold font-bold hover:bg-white/10 text-lg">Для дилерів</a>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Мобільне меню
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Логіка кошика
+        const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        
+        const badges = [
+            document.getElementById('cart-badge-desktop'),
+            document.getElementById('cart-badge-mobile')
+        ];
+
+        badges.forEach(badge => {
+            if (badge) {
+                if (totalItems > 0) {
+                    badge.innerText = totalItems;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
+        });
+    });
+</script>
+
+
+   <!-- HERO SECTION -->
+    <section class="hero-gradient text-white py-16 md:py-24">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-3xl md:text-5xl font-heading font-extrabold mb-6 uppercase tracking-tight">Вхідні та міжкімнатні двері від виробника</h1>
+            <p class="text-lg md:text-xl text-brand-light/90 max-w-3xl mx-auto mb-10">Надійне партнерство для дверних салонів, забудовників та будівельних компаній. Виготовляємо двері будь-якої складності под ваші потреби.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#partner_form" class="btn-universal bg-brand-gold text-brand-dark border-brand-gold shadow-xl">Стати дилером</a>
+                <a href="tel:+380671032400" class="btn-universal bg-brand-gold text-brand-dark border-brand-gold shadow-xl">Консультація</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEY BENEFITS GRID -->
+    <section class="py-12 bg-brand-light">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 -mt-20 md:-mt-24">
+                <div class="bg-white p-8 rounded-2xl shadow-xl feature-card border-b-4 border-brand-gold">
+                    <div class="w-14 h-14 bg-brand-dark/10 rounded-xl flex items-center justify-center mb-6 text-brand-dark text-3xl">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Персональний супровід</h3>
+                    <p class="text-sm text-gray-500">Кваліфікований менеджер супроводжує ваше замовлення від ескізу до відвантаження.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl feature-card border-b-4 border-brand-gold">
+                    <div class="w-14 h-14 bg-brand-dark/10 rounded-xl flex items-center justify-center mb-6 text-brand-dark text-3xl">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Швидка логістика</h3>
+                    <p class="text-sm text-gray-500">Доставка власним транспортом або перевізниками (САТ, НП) прямо на ваш склад.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl feature-card border-b-4 border-brand-gold">
+                    <div class="w-14 h-14 bg-brand-dark/10 rounded-xl flex items-center justify-center mb-6 text-brand-dark text-3xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Гарантія 3 роки</h3>
+                    <p class="text-sm text-gray-500">Ми впевнені у якості, тому надаємо 3 роки повної офіційної гарантії на виріб.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-xl feature-card border-b-4 border-brand-gold">
+                    <div class="w-14 h-14 bg-brand-dark/10 rounded-xl flex items-center justify-center mb-6 text-brand-dark text-3xl">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-brand-dark mb-2">Під замовлення</h3>
+                    <p class="text-sm text-gray-500">Будь-які розміри, фрезерування та кольори плівок. Втілюємо найскладніші проекти.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILED INFO SECTION -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-6 leading-tight">Чому БАСТІОН-БЦ — це надійна основа для вашого бізнесу?</h2>
+                <p class="text-gray-600 leading-relaxed text-lg">Ми зосереджені на індивідуальному виробництві, що дозволяє нашим партнерам пропонувати клієнтам саме той продукт, який їм потрібен, без обмежень складських залишків.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="flex items-start gap-4 p-6 bg-brand-light rounded-2xl hover:shadow-md transition border border-transparent hover:border-brand-gold/20">
+                    <i class="fa-solid fa-bullhorn text-brand-gold text-2xl mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Маркетингова підтримка</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Надаємо безкоштовні каталоги, зразки покриттів (віяла плівок) та допомагаємо з оформленням виставкових зон.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-brand-light rounded-2xl hover:shadow-md transition border border-transparent hover:border-brand-gold/20">
+                    <i class="fa-solid fa-tags text-brand-gold text-2xl mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Гнучка система знижок</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Пропонуємо вигідні умови та прогресивну шкалу цін. Чим більше замовлень — тим вища ваша маржинальність.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-brand-light rounded-2xl hover:shadow-md transition border border-transparent hover:border-brand-gold/20">
+                    <i class="fa-solid fa-handshake-simple text-brand-gold text-2xl mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Захист партнерів</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Ми не конкуруємо з нашими дилерами. Усіх роздрібних клієнтів з вашого регіону ми перенаправляємо саме до вас.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-brand-light rounded-2xl hover:shadow-md transition border border-transparent hover:border-brand-gold/20">
+                    <i class="fa-solid fa-screwdriver-wrench text-brand-gold text-2xl mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Технічна допомога</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Надаємо консультації з конструктивих особливостей та допомогу в прорахунку складних нестандартних замовлень.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-brand-light rounded-2xl hover:shadow-md transition border border-transparent hover:border-brand-gold/20">
+                    <i class="fa-solid fa-calendar-check text-brand-gold text-2xl mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Стабільні терміни</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Чітко дотримуємось графіку виробництва, щоб ви могли точно планувати монтажі для своїх клієнтів.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-brand-light rounded-2xl hover:shadow-md transition border border-transparent hover:border-brand-gold/20">
+                    <i class="fa-solid fa-award text-brand-gold text-2xl mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Висока якість збірки</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Кожні двері проходять багаторівневий контроль якості перед відвантаженням, що мінімізує кількість рекламацій.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE POLICY SECTION -->
+    <section class="py-20 bg-brand-dark text-white overflow-hidden relative">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold mb-4">Наша сервісна відповідальність</h2>
+                <div class="w-20 h-1 bg-brand-gold mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-16">
+                <!-- Блок 1 (3 Робочі дні) -->
+                <div class="p-6">
+                    <div class="text-brand-gold text-4xl mb-4"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <h4 class="font-bold mb-2">3 Робочі дні</h4>
+                    <p class="text-gray-300 text-sm">Максимальний термін розгляду та опрацювання будь-якого сервісного звернення.</p>
+                </div>
+                <!-- Блок 2 (Сервісне обслуговування) -->
+                <div class="p-6 border-x border-white/10">
+                    <div class="text-brand-gold text-4xl mb-4"><i class="fa-solid fa-van-shuttle"></i></div>
+                    <h4 class="font-bold mb-2">Сервісне обслуговування</h4>
+                    <p class="text-gray-300 text-sm">Наші фахівці здійснюють сервісні виїзди для проведення необхідних робіт у найкоротші терміни.</p>
+                </div>
+                <!-- Блок 3 (НОВИЙ: Пріоритетне виготовлення) -->
+                <div class="p-6">
+                    <div class="text-brand-gold text-4xl mb-4"><i class="fa-solid fa-forward-step"></i></div>
+                    <h4 class="font-bold mb-2">Пріоритетна черга</h4>
+                    <p class="text-gray-300 text-sm italic">Рекламаційні замовлення виготовляються позачергово. Ми цінуємо час вашого клієнта та вашу репутацію.</p>
+                </div>
+            </div>
+
+            <!-- БАНЕР РЕКЛАМАЦІЇ -->
+            <div class="max-w-5xl mx-auto bg-brand-dark border border-white/10 rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative overflow-hidden group">
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl md:text-4xl font-heading font-bold mb-4">Виникли питання по якості?</h3>
+                        <p class="text-gray-300 text-sm md:text-base max-w-xl">Якщо ви виявили брак або пошкодження під час отримання товару, будь ласка, скористайтеся формою рекламації.</p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="https://forms.gle/BwBjRNMQKrtbysJ47" target="_blank" class="btn-claim-red">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            ПОДАТИ РЕКЛАМАЦІЮ
+                        </a>
+                    </div>
+                </div>
+                <i class="fa-solid fa-file-invoice absolute -bottom-10 -right-6 text-[15rem] text-white/5 pointer-events-none group-hover:text-white/10 transition-colors duration-500"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEPS TO BECOME A PARTNER -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-3xl font-heading font-bold text-brand-dark mb-16">Як розпочати співпрацю?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center relative">
+                    <div class="w-16 h-16 bg-white text-brand-dark rounded-full flex items-center justify-center mx-auto text-2xl font-bold border-2 border-brand-gold mb-4 relative z-10">1</div>
+                    <h5 class="font-bold mb-2 text-brand-dark">Заявка</h5>
+                    <p class="text-xs text-gray-500">Заповніть форму або зателефонуйте нам</p>
+                    <div class="hidden md:block absolute top-8 left-1/2 w-full h-px bg-brand-accent -z-0"></div>
+                </div>
+                <div class="text-center relative">
+                    <div class="w-16 h-16 bg-white text-brand-dark rounded-full flex items-center justify-center mx-auto text-2xl font-bold border-2 border-brand-gold mb-4 relative z-10">2</div>
+                    <h5 class="font-bold mb-2 text-brand-dark">Узгодження</h5>
+                    <p class="text-xs text-gray-500">Знайомство та обговорення умов знижок</p>
+                    <div class="hidden md:block absolute top-8 left-1/2 w-full h-px bg-brand-accent -z-0"></div>
+                </div>
+                <div class="text-center relative">
+                    <div class="w-16 h-16 bg-white text-brand-dark rounded-full flex items-center justify-center mx-auto text-2xl font-bold border-2 border-brand-gold mb-4 relative z-10">3</div>
+                    <h5 class="font-bold mb-2 text-brand-dark">Матеріали</h5>
+                    <p class="text-xs text-gray-500">Надсилаємо каталоги та зразки плівок</p>
+                    <div class="hidden md:block absolute top-8 left-1/2 w-full h-px bg-brand-accent -z-0"></div>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white text-brand-dark rounded-full flex items-center justify-center mx-auto text-2xl font-bold border-2 border-brand-gold mb-4 relative z-10">4</div>
+                    <h5 class="font-bold mb-2 text-brand-dark text-brand-gold">Продаж</h5>
+                    <p class="text-xs text-gray-500">Початок активної роботи та спільний прибуток</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM SECTION -->
+    <section id="partner_form" class="py-20 bg-brand-light">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <div class="md:w-2/5 bg-brand-dark p-12 text-white flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-6">Відправте запит сьогодні</h3>
+                    <p class="text-gray-300 text-sm mb-8 leading-relaxed">Наш менеджер зв'яжеться з вами протягом години, щоб надати прайс-лист та обговорити індивідуальні умови.</p>
+                    <div class="space-y-4 text-sm">
+                        <p class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-brand-gold"></i> с. Фурси, Біла Церква</p>
+                        <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-brand-gold"></i> sales@bastion-bc.com.ua</p>
+                    </div>
+                </div>
+                <div class="md:w-3/5 p-12">
+                    <form id="dealer-request-form" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Ім'я</label>
+                                <input type="text" id="dealer-name" class="w-full border-b-2 border-gray-100 py-3 focus:outline-none focus:border-brand-gold transition" placeholder="" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Телефон</label>
+                                <input type="tel" id="dealer-phone" class="w-full border-b-2 border-gray-100 py-3 focus:outline-none focus:border-brand-gold transition" placeholder="+38 067..." required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Тип діяльності</label>
+                            <select id="dealer-type" class="w-full border-b-2 border-gray-100 py-3 focus:outline-none focus:border-brand-gold transition bg-transparent cursor-pointer">
+                                <option>Дверний салон / Магазин</option>
+                                <option>Забудовник / Будкомпанія</option>
+                                <option>Виконроб / Майстер</option>
+                                <option>Дизайнер інтер'єру</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-400 mb-2">Повідомлення</label>
+                            <textarea id="dealer-comment" rows="2" class="w-full border-b-2 border-gray-100 py-3 focus:outline-none focus:border-brand-gold transition resize-none" placeholder="Бажаю отримати оптовий прайс..."></textarea>
+                        </div>
+                        <button type="submit" id="dealer-submit-btn" class="btn-universal w-full bg-brand-gold text-brand-dark border-brand-gold shadow-xl">Надіслати заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="mt-auto bg-brand-dark text-gray-300 py-8 md:py-12 border-t border-white/10">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <a href="index.html" class="text-xl font-bold text-white flex items-center gap-2 mb-4"></a>
+                <img src="images/logo.png" alt="BASTION-BC LOGO" class="h-12 md:h-16 w-auto object-contain">
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Меню</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="about.html" class="hover:text-brand-gold">Про нас</a></li>
+                    <li><a href="catalog.html" class="hover:text-brand-gold">Каталог</a></li>
+                    <li><a href="dealers.html" class="hover:text-brand-gold">Співпраця</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакти</h4>
+                <p class="text-sm">с. Фурси, вул. Промислова, 22</p>
+                <p class="text-sm">068 968 32 32</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Соцмережі</h4>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/dveribastionbc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/dveri_bastionbc/" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@bastionbc?is_from_webapp=1&sender_device=pc" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://www.youtube.com/@%D0%94%D0%92%D0%95%D0%A0%D0%86-%D0%91%D0%90%D0%A1%D0%A2%D0%86%D0%9E%D0%9D-%D0%91%D0%A6" target="_blank" class="text-white hover:text-brand-gold transition-colors">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 text-center text-sm border-t border-white/10 pt-6 mt-8 text-gray-400">&copy; 2024 БАСТІОН-БЦ.</div>
+    </footer>
+
+     <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        document.getElementById('dealer-request-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('dealer-submit-btn');
+            const data = {
+                name: document.getElementById('dealer-name').value,
+                phone: document.getElementById('dealer-phone').value,
+                type: document.getElementById('dealer-type').value,
+                comment: document.getElementById('dealer-comment').value
+            };
+
+            const token = '8255112696:AAH618AP2t9MROWhov-sKLWsr_24WxadmfI';
+            const chatId = '1266321063';
+            const message = `<b>🤝 ЗАЯВКА НА ПАРТНЕРСТВО</b>\n\n👤 ${data.name}\n📞 ${data.phone}\n🏢 ${data.type}\n💬 ${data.comment}`;
+
+            btn.disabled = true;
+            btn.innerText = 'ВІДПРАВКА...';
+
+            try {
+                const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
+                });
+
+                if (res.ok) {
+                    alert('Ваша заявка успішно надіслана! Наш менеджер зв’яжеться з вами найближчим часом.');
+                    this.reset();
+                } else {
+                    alert('Помилка відправки. Спробуйте пізніше.');
+                }
+            } catch (err) {
+                alert('Помилка мережі.');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'НАДІСЛАТИ ЗАЯВКУ';
+            }
+        });
+    </script>
+</body>
+</html>
