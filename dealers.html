@@ -11,7 +11,6 @@
         tailwind.config = { theme: { extend: { colors: { brand: { dark: '#0047ab', gold: '#d4af37', gray: '#333333', light: '#f4f4f4' } }, fontFamily: { sans: ['"Open Sans"', 'sans-serif'], heading: ['"Montserrat"', 'sans-serif'] } } } }
     </script>
     <style>
-        <style>
         .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
         .hero-gradient { 
             background: linear-gradient(rgba(0, 71, 171, 0.9), rgba(0, 71, 171, 0.8)), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070'); 
@@ -69,9 +68,7 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
     </style>
-        body { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
-        .nav-link.active { color: #d4af37; border-bottom: 2px solid #d4af37; }
-    </style>
+        
 </head>
 <body class="font-sans text-gray-800 flex flex-col min-h-screen">
 
@@ -477,6 +474,39 @@
                 btn.disabled = false;
                 btn.innerText = 'НАДІСЛАТИ ЗАЯВКУ';
             }
+        });
+           // 1. Мобільне меню
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // 2. Логіка кошика (бейджі)
+            const cart = JSON.parse(localStorage.getItem('myCart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            
+            const badges = [
+                document.getElementById('cart-badge-desktop'),
+                document.getElementById('cart-badge-mobile')
+            ];
+
+            badges.forEach(badge => {
+                if (badge) {
+                    if (totalItems > 0) {
+                        badge.innerText = totalItems;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
     </script>
 </body>
