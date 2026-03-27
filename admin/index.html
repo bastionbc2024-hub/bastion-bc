@@ -4,20 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bastion-BC | Admin</title>
-  <!-- Додаємо скрипт для авторизації в head -->
+  <!-- Скрипт авторизації -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <!-- Скрипт самої адмінки -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-  <!-- Маленький скрипт, який перенаправить вас в адмінку після успішного входу -->
   <script>
+    // Цей рядок "лікує" помилку 404, вказуючи прямий шлях до вашого Netlify
+    localStorage.setItem("netlifySiteURL", "https://effulgent-stardust-4af791.netlify.app");
+
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
+            // Перенаправлення після входу
+            document.location.href = "/bastion-bc/admin/";
           });
         }
       });
