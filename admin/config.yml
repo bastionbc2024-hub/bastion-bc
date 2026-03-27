@@ -2,9 +2,11 @@ backend:
   name: github
   repo: bastionbc2024-hub/bastion-bc
   branch: main
-  site_id: effulgent-stardust-4af791.netlify.app
-  base_url: https://effulgent-stardust-4af791.netlify.app
+  site_id: bastionbc2024-hub # Тут тепер нова назва, яку ти щойно ввела
+  base_url: https://bastionbc2024-hub.netlify.app
   auth_endpoint: .netlify/identity/auth
+
+locale: uk
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
@@ -19,3 +21,4 @@ collections:
         fields:
           - {label: "Заголовок сторінки", name: "title", widget: "string"}
           - {label: "Основний контент", name: "body", widget: "markdown"}
+
