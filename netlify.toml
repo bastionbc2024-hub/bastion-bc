@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/auth"
+  to = ".netlify/identity/auth"
+  status = 200
+
+[[redirects]]
+  from = "/callback"
+  to = ".netlify/identity/callback"
+  status = 200
