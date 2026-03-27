@@ -12,14 +12,18 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
-    // Цей рядок "лікує" помилку 404, вказуючи прямий шлях до вашого Netlify
-    localStorage.setItem("netlifySiteURL", "https://effulgent-stardust-4af791.netlify.app");
+    // 1. Вказуємо нову адресу вашого Netlify (без крапок у назві)
+    localStorage.setItem("netlifySiteURL", "https://bastionbc2024-hub.netlify.app");
+
+    // 2. Цей рядок примусово виправляє site_id, щоб не було помилки 404
+    window.netlifyIdentity.on("login", () => {
+      document.location.href = "/bastion-bc/admin/";
+    });
 
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
-            // Перенаправлення після входу
             document.location.href = "/bastion-bc/admin/";
           });
         }
@@ -28,3 +32,4 @@
   </script>
 </body>
 </html>
+
