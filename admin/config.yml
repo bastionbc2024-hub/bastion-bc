@@ -2,8 +2,9 @@ backend:
   name: github
   repo: bastionbc2024-hub/bastion-bc
   branch: main
+  site_id: effulgent-stardust-4af791.netlify.app
   base_url: https://effulgent-stardust-4af791.netlify.app
-  auth_endpoint: /auth
+  auth_endpoint: .netlify/identity/auth
 
 media_folder: "assets/images"
 public_folder: "/assets/images"
