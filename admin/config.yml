@@ -1,9 +1,11 @@
 backend:
   name: github
-  repo: bastionbc2024-hub/bastion-bc # Ваша адреса на GitHub
-  branch: main # Перевірте, чи ваша гілка називається main (або master)
+  repo: bastionbc2024-hub/bastion-bc
+  branch: main
+  base_url: https://effulgent-stardust-4af791.netlify.app
+  auth_endpoint: /auth
 
-media_folder: "assets/images" # Куди будуть завантажуватися картинки
+media_folder: "assets/images"
 public_folder: "/assets/images"
 
 collections:
