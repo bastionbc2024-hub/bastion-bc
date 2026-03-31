@@ -91,41 +91,52 @@
                     <a href="flat-doors.html" class="flex items-center justify-center px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark transition text-[11px] md:text-base min-h-[40px]">Квартирні</a>
                     <a href="tech-doors.html" class="flex items-center justify-center px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark transition text-[11px] md:text-base min-h-[40px]">Технічні</a>
                     <a href="interior-doors.html" class="flex items-center justify-center px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark transition text-[11px] md:text-base min-h-[40px]">Міжкімнатні</a>
-                    <a href="hardware.html" class="flex items-center justify-center px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:border-brand-dark transition text-[11px] md:text-base min-h-[40px]">Фурнітура</a>
                 </div>
 
-                <!-- Гібридна сітка товарів (Статичний + Динамічні) -->
-                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    
-                    <!-- ТОВАР 1 (Ваш оригінальний Моноліт) -->
-                    <div class="door-card group relative overflow-hidden rounded-lg shadow-lg border border-gray-100 bg-[#f8f8f8] flex flex-col fade-in" style="aspect-ratio: 2/3;">
-                        <div class="relative h-full w-full overflow-hidden group">
-                            <div id="carousel-street-1" class="flex h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth">
-                                <div class="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-2">
-                                    <a href="1product-monolit.html" class="block w-full h-full flex items-center justify-center">
-                                        <img src="images/monolit.png" class="max-w-full max-h-full object-contain cursor-pointer hover:opacity-90 transition-opacity" alt="Серія Моноліт - Вид 1">
-                                    </a>
-                                </div>
-                                <div class="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-2">
-                                    <a href="product-monolit.html" class="block w-full h-full flex items-center justify-center">
-                                        <img src="images1/monolit0.0.webp" class="max-w-full max-h-full object-contain cursor-pointer hover:opacity-90 transition-opacity" alt="Серія Моноліт - Вид 2">
-                                    </a>
-                                </div>
-                            </div>
-                            <button onclick="scrollCarousel('carousel-street-1', -1)" class="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center text-white text-3xl drop-shadow-lg hover:bg-black/10 z-10">❮</button>
-                            <button onclick="scrollCarousel('carousel-street-1', 1)" class="absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center text-white text-3xl drop-shadow-lg hover:bg-black/10 z-10">❯</button>
-                        </div>
-                        <div class="absolute bottom-0 left-0 p-5 text-white w-full pointer-events-none z-20 bg-gradient-to-t from-brand-dark/90 via-black/40 to-transparent">
-                            <h3 class="text-xl font-bold mb-0.5">Серія "Моноліт"</h3>
-                            <p class="text-[10px] text-gray-300 mb-2 font-medium">Покриття Лампре</p>
-                            <p class="text-[11px] leading-tight text-gray-200 mb-4 line-clamp-2">Максимальний терморозрив 16мм. Преміум дизайн.</p>
-                            <span class="inline-block bg-orange-600 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">Вулиця</span>
-                        </div>
-                    </div>
-
-                    <!-- Сюди додадуться наступні 9 товарів через JS -->
-
+                
+        <!-- ПАНЕЛЬ ФІЛЬТРІВ -->
+        <section class="mb-10 p-6 bg-gray-50 rounded-2xl border border-gray-200 shadow-sm">
+            <div class="flex flex-wrap items-center gap-6">
+                <!-- Фільтр по Серіях -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs font-bold uppercase text-gray-500 tracking-wider">Серія</label>
+                    <select id="filter-series" class="p-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-orange-500 outline-none min-w-[160px]">
+                        <option value="all">Усі серії</option>
+                        <option value="МОНОЛІТ">Моноліт</option>
+                        <option value="КЛУБ">Клуб</option>
+                        <option value="СТАЙЛ">Стайл</option>
+                        <option value="ПРАЙМ">Прайм</option>
+                        <option value="ПРАЙМ-МАКС">Прайм-Макс</option>
+                        <option value="РУБІКОН">Рубікон</option>
+                    </select>
                 </div>
+
+                <!-- Фільтр по Покриттю -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs font-bold uppercase text-gray-500 tracking-wider">Покриття</label>
+                    <select id="filter-surface" class="p-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-orange-500 outline-none min-w-[160px]">
+                        <option value="all">Усі покриття</option>
+                        <option value="Лампре">Лампре</option>
+                        <option value="Полімер">Полімер</option>
+                        <option value="Метал">Метал</option>
+                    </select>
+                </div>
+
+                <!-- Фільтр по Наявності (СП) -->
+                <div class="flex items-center gap-3 mt-6">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="filter-stock" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
+                        <span class="ml-3 text-sm font-medium text-gray-700">Тільки в наявності</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- СІТКА ТОВАРІВ -->
+        <section>
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- Сюди додадуться товари через JS -->
             </div>
         </section>
     </main>
@@ -173,52 +184,92 @@
             }
         }
 
-        // 3. АВТОМАТИЧНЕ ДОДАВАННЯ 9 ТОВАРІВ
-        const extraProducts = [
-            { id: 2, name: 'Серія "КЛУБ"', desc: 'Посилена конструкція, три контури.', img1: 'images1/klub1.0_2_11zon.webp', img2: 'images1/klub1.1_3_11zon.webp', link: '1product-klub1.html' },
-            { id: 3, name: 'Серія "КЛУБ"', desc: 'Ексклюзивне фрезерування.', img1: 'images1/klub2.0_4_11zon.webp', img2: 'images1/klub1.1_3_11zon.webp', link: '1product-klub2.html' },
-            { id: 4, name: 'Серія "СТАЙЛ"', desc: 'Традиційний дизайн.', img1: 'images1/stayl1.0.webp', img2: 'images1/stayl1.1.webp', link: '1product-style1.html' },
-            { id: 5, name: 'Серія "СТАЙЛ"', desc: 'Сучасний мінімалізм.', img1: 'images1/stayl2.0.webp', img2: 'images1/stayl2.1.webp', link: '1product-style2.html' },
-            { id: 6, name: 'Серія "МОНОЛІТ"', desc: 'Традиційний дизайн.', img1: 'images1/monolit1.0_6_11zon.webp', img2: 'images1/monolit1.1_7_11zon.webp', link: '1product-monolit1.html' },
-            { id: 7, name: 'Серія "МОНОЛІТ"', desc: 'Сучасний мінімалізм.', img1: 'images1/monolit2.0_8_11zon.webp', img2: 'images1/monolit2.1_9_11zon.webp', link: '1product-monolit2.html' },
-            { id: 8, name: 'Серія "ПРАЙМ"', desc: 'Преміальна шумоізоляція.', img1: 'images1/praim1.0_10_11zon.webp', img2: 'images1/praim1.1_11_11zon.webp', link: '1product-praym.html' },
-            { id: 9, name: 'Серія "ПРАЙМ-МАКС"', desc: 'Масивні та надійні.', img1: 'images1/praim-max1.0_12_11zon.webp', img2: 'images1/praim-max1.1 _13_11zon.webp', link: '1product-praym – max1.html' },
-            { id: 10, name: 'Серія "ПРАЙМ-МАКС"', desc: 'Інноваційні рішення.', img1: 'images1/praim-max2.0_14_11zon.webp', img2: 'images1/praim-max2.1_15_11zon.webp', link: '1product-praym – max2.html' },
-            { id: 11, name: 'Серія "ПРАЙМ-МАКС"', desc: 'Найкраща ціна.', img1: 'images1/praim-maxsp1.0_16_11zon.webp', img2: 'images1/praim-maxsp1.1_17_11zon.webp', link: '1product-praym – maxSP.html' },
-            { id: 12, name: 'Серія "РУБІКОН"', desc: 'Максимальна безпека.', img1: 'images1/rubikon1.0_19_11zon.webp', img2: 'images1/rubikon1.1_18_11zon.webp', link: '1product-rubikon.html' }
-        ];
+        // 1. ПОВНИЙ СПИСОК ТОВАРІВ (Усі "немає в наявності", крім id: 1)
+const products = [
+    { id: 1, name: 'Серія "МОНОЛІТ"', series: 'МОНОЛІТ', surface: 'Лампре', stock: true, desc: 'Максимальний терморозрив 16мм. Преміум дизайн.', img1: 'images/monolit.png', img2: 'images1/monolit0.0.webp', link: '1product-monolit.html', tag: 'Вулиця' },
+    { id: 2, name: 'Серія "КЛУБ"', series: 'КЛУБ', surface: 'Полімер', stock: false, desc: 'Посилена конструкція, три контури.', img1: 'images1/klub1.0_2_11zon.webp', img2: 'images1/klub1.1_3_11zon.webp', link: '1product-klub1.html', tag: 'Квартира' },
+    { id: 3, name: 'Серія "КЛУБ"', series: 'КЛУБ', surface: 'Полімер', stock: false, desc: 'Ексклюзивне фрезерування.', img1: 'images1/klub2.0_4_11zon.webp', img2: 'images1/klub1.1_3_11zon.webp', link: '1product-klub2.html', tag: 'Квартира' },
+    { id: 4, name: 'Серія "СТАЙЛ"', series: 'СТАЙЛ', surface: 'Лампре', stock: false, desc: 'Традиційний дизайн.', img1: 'images1/stayl1.0.webp', img2: 'images1/stayl1.1.webp', link: '1product-style1.html', tag: 'Вулиця' },
+    { id: 5, name: 'Серія "СТАЙЛ"', series: 'СТАЙЛ', surface: 'Лампре', stock: false, desc: 'Сучасний мінімалізм.', img1: 'images1/stayl2.0.webp', img2: 'images1/stayl2.1.webp', link: '1product-style2.html', tag: 'Вулиця' },
+    { id: 6, name: 'Серія "МОНОЛІТ"', series: 'МОНОЛІТ', surface: 'Лампре', stock: false, desc: 'Традиційний дизайн.', img1: 'images1/monolit1.0_6_11zon.webp', img2: 'images1/monolit1.1_7_11zon.webp', link: '1product-monolit1.html', tag: 'Вулиця' },
+    { id: 7, name: 'Серія "МОНОЛІТ"', series: 'МОНОЛІТ', surface: 'Лампре', stock: false, desc: 'Сучасний мінімалізм.', img1: 'images1/monolit2.0_8_11zon.webp', img2: 'images1/monolit2.1_9_11zon.webp', link: '1product-monolit2.html', tag: 'Вулиця' },
+    { id: 8, name: 'Серія "ПРАЙМ"', series: 'ПРАЙМ', surface: 'Метал', stock: false, desc: 'Преміальна шумоізоляція.', img1: 'images1/praim1.0_10_11zon.webp', img2: 'images1/praim1.1_11_11zon.webp', link: '1product-praym.html', tag: 'Квартира' },
+    { id: 9, name: 'Серія "ПРАЙМ-МАКС"', series: 'ПРАЙМ-МАКС', surface: 'Метал', stock: false, desc: 'Масивні та надійні.', img1: 'images1/praim-max1.0_12_11zon.webp', img2: 'images1/praim-max1.1 _13_11zon.webp', link: '1product-praym – max1.html', tag: 'Квартира' },
+    { id: 10, name: 'Серія "ПРАЙМ-МАКС"', series: 'ПРАЙМ-МАКС', surface: 'Метал', stock: false, desc: 'Інноваційні рішення.', img1: 'images1/praim-max2.0_14_11zon.webp', img2: 'images1/praim-max2.1_15_11zon.webp', link: '1product-praym – max2.html', tag: 'Квартира' },
+    { id: 11, name: 'Серія "ПРАЙМ-МАКС"', series: 'ПРАЙМ-МАКС', surface: 'Метал', stock: false, desc: 'Найкраща ціна.', img1: 'images1/praim-maxsp1.0_16_11zon.webp', img2: 'images1/praim-maxsp1.1_17_11zon.webp', link: '1product-praym – maxSP.html', tag: 'Квартира' },
+    { id: 12, name: 'Серія "РУБІКОН"', series: 'РУБІКОН', surface: 'Метал', stock: false, desc: 'Максимальна безпека.', img1: 'images1/rubikon1.0_19_11zon.webp', img2: 'images1/rubikon1.1_18_11zon.webp', link: '1product-rubikon.html', tag: 'Вулиця' }
+];
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const grid = document.getElementById('products-grid');
-            extraProducts.forEach(p => {
-                const card = `
-                <div class="door-card group relative overflow-hidden rounded-lg shadow-lg border border-gray-100 bg-[#f8f8f8] flex flex-col fade-in" style="aspect-ratio: 2/3;">
-                    <div class="relative h-full w-full overflow-hidden group">
-                        <div id="carousel-street-${p.id}" class="flex h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth">
-                            <div class="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-2">
-                                <a href="${p.link}" class="block w-full h-full flex items-center justify-center">
-                                    <img src="${p.img1}" class="max-w-full max-h-full object-contain cursor-pointer hover:opacity-90 transition-opacity" alt="${p.name}">
-                                </a>
-                            </div>
-                            <div class="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-2">
-                                <a href="${p.link}" class="block w-full h-full flex items-center justify-center">
-                                    <img src="${p.img2}" class="max-w-full max-h-full object-contain cursor-pointer hover:opacity-90 transition-opacity" alt="${p.name}">
-                                </a>
-                            </div>
+// 2. ФУНКЦІЯ ВІДОБРАЖЕННЯ
+function renderProducts(data) {
+    const grid = document.getElementById('products-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    data.forEach(p => {
+        const card = `
+            <div class="door-card group relative overflow-hidden rounded-lg shadow-lg border border-gray-100 bg-[#f8f8f8] flex flex-col fade-in" style="aspect-ratio: 2/3;">
+                <div class="relative h-full w-full overflow-hidden">
+                    <div id="carousel-${p.id}" class="flex h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth">
+                        <div class="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-2">
+                            <a href="${p.link}" class="block w-full h-full flex items-center justify-center">
+                                <img src="${p.img1}" class="max-w-full max-h-full object-contain" alt="${p.name}">
+                            </a>
                         </div>
-                        <button onclick="scrollCarousel('carousel-street-${p.id}', -1)" class="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center text-white text-3xl drop-shadow-lg hover:bg-black/10 z-10">❮</button>
-                        <button onclick="scrollCarousel('carousel-street-${p.id}', 1)" class="absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center text-white text-3xl drop-shadow-lg hover:bg-black/10 z-10">❯</button>
+                        <div class="w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-2">
+                            <a href="${p.link}" class="block w-full h-full flex items-center justify-center">
+                                <img src="${p.img2}" class="max-w-full max-h-full object-contain" alt="${p.name}">
+                            </a>
+                        </div>
                     </div>
-                    <div class="absolute bottom-0 left-0 p-5 text-white w-full pointer-events-none z-20 bg-gradient-to-t from-brand-dark/90 via-black/40 to-transparent">
-                        <h3 class="text-xl font-bold mb-0.5">${p.name}</h3>
-                        <p class="text-[10px] text-gray-300 mb-2 font-medium">Покриття </p>
-                        <p class="text-[11px] leading-tight text-gray-200 mb-4 line-clamp-2">${p.desc}</p>
-                        <span class="inline-block bg-orange-600 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">Вулиця</span>
+                    <button onclick="scrollCarousel('carousel-${p.id}', -1)" class="absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center text-white text-2xl drop-shadow-lg hover:bg-black/10 z-10">❮</button>
+                    <button onclick="scrollCarousel('carousel-${p.id}', 1)" class="absolute right-0 top-0 bottom-0 w-10 flex items-center justify-center text-white text-2xl drop-shadow-lg hover:bg-black/10 z-10">❯</button>
+                </div>
+                <div class="absolute bottom-0 left-0 p-5 text-white w-full pointer-events-none z-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                    <h3 class="text-xl font-bold mb-0.5">${p.name}</h3>
+                    <p class="text-[10px] text-gray-300 mb-1">Покриття зовнішне: ${p.surface}</p>
+                    <p class="text-[11px] leading-tight text-gray-200 mb-4 line-clamp-2">${p.desc}</p>
+                    <div class="flex gap-2">
+                        <span class="inline-block bg-orange-600 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">${p.tag}</span>
+                        ${p.stock 
+                            ? '<span class="bg-green-600 px-2 py-1 rounded text-[10px] font-bold uppercase">В наявності</span>' 
+                            : '<span class="bg-gray-600 px-2 py-1 rounded text-[10px] font-bold uppercase opacity-80">Під замовлення</span>'}
                     </div>
-                </div>`;
-                grid.insertAdjacentHTML('beforeend', card);
-            });
-        });
+                </div>
+            </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', card);
+    });
+}
+
+// 3. ЛОГІКА ФІЛЬТРІВ
+function applyFilters() {
+    const seriesValue = document.getElementById('filter-series').value;
+    const surfaceValue = document.getElementById('filter-surface').value;
+    const stockOnly = document.getElementById('filter-stock').checked;
+
+    const filtered = products.filter(p => {
+        const matchSeries = (seriesValue === 'all' || p.series === seriesValue);
+        const matchSurface = (surfaceValue === 'all' || p.surface === surfaceValue);
+        const matchStock = (!stockOnly || p.stock === true);
+        return matchSeries && matchSurface && matchStock;
+    });
+
+    renderProducts(filtered);
+}
+
+// 4. ДОДАЄМО СЛУХАЧІ (щоб фільтрувало відразу при кліку)
+document.getElementById('filter-series')?.addEventListener('change', applyFilters);
+document.getElementById('filter-surface')?.addEventListener('change', applyFilters);
+document.getElementById('filter-stock')?.addEventListener('change', applyFilters);
+
+// Ініціалізація сторінки
+window.scrollCarousel = function(id, direction) {
+    const el = document.getElementById(id);
+    if (el) el.scrollBy({ left: direction * el.clientWidth, behavior: 'smooth' });
+};
+
+renderProducts(products);
     </script>
 </body>
 </html>
